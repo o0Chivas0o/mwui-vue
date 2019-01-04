@@ -1,0 +1,23 @@
+{
+  "name": "my-wheel",
+  "version": "0.0.1",
+  "description": "这是一个ui框架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/o0Chivas0o/my-wheel.git"
+  },
+  "keywords": [
+    "vue",
+    "ui"
+  ],
+  "author": "o0Chivas0o",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/o0Chivas0o/my-wheel/issues"
+  },
+  "homepage": "https://github.com/o0Chivas0o/my-wheel#readme"
+}
