@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         html {
             --button-height: 32px;
             --font-size: 14px;
@@ -21,22 +21,37 @@
             --border-radius: 4px;
             --color: #999;
             --border-color: #999;
-            --border-color-hover: #999;
+            --border-color-hover: #333;
         }
-        
+
         #app {
             margin: 20px;
         }
-        
+
         body {
             font-size: var(--font-size);
+        }
+    </style>
+    <style>
+        .icon {
+            width: 1em;
+            height: 1em;
         }
     </style>
 </head>
 <body>
 <div id="app">
-    <w-button></w-button>
+    <w-button icon="settings">
+        按钮
+    </w-button>
+    <w-button>
+        按钮
+    </w-button>
+    <w-button icon="settings" icon-position="right">
+        按钮
+    </w-button>
 </div>
 <script src="./src/app.js"></script>
+<script src="//at.alicdn.com/t/font_1016089_mhqi162bp39.js"></script>
 </body>
 </html>
