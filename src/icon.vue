@@ -5,20 +5,17 @@
 </template>
 
 <script>
-    export default {
-        name: "icon",
-        props: {
-            name: {
-                type: String,
-                default: undefined
-            }
-        }
+  export default {
+    name:'icon',
+    props:{
+      name:{
+        type:String,
+        default:undefined
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>
-    .icon {
-        width: 1em;
-        height: 1em;
-    }
+    .icon {width: 1em;height: 1em;}
 </style>
