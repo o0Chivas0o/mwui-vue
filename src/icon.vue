@@ -16,7 +16,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .icon {
         width: 1em;
         height: 1em;
