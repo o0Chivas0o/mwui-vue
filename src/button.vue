@@ -1,8 +1,7 @@
 <template>
     <button class="w-button" :class="{[`icon-${iconPosition}`]:true}">
-        <svg v-if="icon" class="icon">
-            <use :xlink:href=`#i-${icon}`></use>
-        </svg>
+        <w-icon v-if="icon" :name="icon" class="icon"></w-icon>
+        <w-icon name="loading" class="loading"></w-icon>
         <div class="content">
             <slot></slot>
         </div>
@@ -28,6 +27,15 @@
 </script>
 
 <style lang="scss">
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
     .w-button {
         font-size: var(--font-size);
         height: var(--button-height);
@@ -64,6 +72,9 @@
                 margin-right: 0;
                 margin-left: .1em;
             }
+        }
+        .loading {
+            animation: spin 1s infinite linear;
         }
     }
 </style>
