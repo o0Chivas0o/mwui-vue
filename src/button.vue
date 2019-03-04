@@ -7,8 +7,12 @@
         </div>
     </button>
 </template>
-
 <script>
+  import Vue from 'vue'
+  import Icon from './icon'
+
+  Vue.component('w-icon',Icon)
+
   export default {
     props:{
       icon:{
@@ -29,7 +33,6 @@
     }
   }
 </script>
-
 <style lang="scss" scoped>
     @keyframes spin {
         0% {transform: rotate(0deg);}
