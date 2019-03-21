@@ -3,7 +3,6 @@
         <slot></slot>
     </div>
 </template>
-
 <script>
   export default {
     name:'button-group',
@@ -17,7 +16,6 @@
     }
   }
 </script>
-
 <style lang="scss" scoped>
     .w-button-group {
         display: inline-flex;vertical-align: middle;

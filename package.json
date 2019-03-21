@@ -1,7 +1,7 @@
 {
   "name": "my-wheel",
   "version": "0.0.1",
-  "description": "这是一个ui框架",
+  "description": "这是一个UI框架 个人轮子作品",
   "main": "index.js",
   "scripts": {
     "start": "npx parcel index.html --no-cache",

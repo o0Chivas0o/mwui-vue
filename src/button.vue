@@ -15,7 +15,8 @@
     props:{
       icon:{type:String,default:undefined},
       loading:{type:Boolean,default:false},
-      iconPosition:{type:String,default:'left',
+      iconPosition:{
+        type:String,default:'left',
         validator (value) {
           return value === 'left' || value === 'right'
         }
