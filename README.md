@@ -32,7 +32,7 @@
    IE 15 及以上浏览器都支持此样式 。
 2. 安装 my-wheel
    ```
-    $ npm i -S my-wheel
+    $ npm i -S my-wheel-test
    ```
 3. 引入 my-wheel
    ```javascript
