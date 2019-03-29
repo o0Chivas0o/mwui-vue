@@ -1,17 +1,22 @@
-import Vue from "vue";
-import Button from "./button";
-import Icon from "./icon";
-import ButtonGroup from "./button-group";
-import Input from "./input";
+import Vue from 'vue'
+import Button from './button'
+import Icon from './icon'
+import ButtonGroup from './button-group'
+import Input from './input'
 
-Vue.component("w-icon", Icon);
-Vue.component("w-button", Button);
-Vue.component("w-button-group", ButtonGroup);
-Vue.component("w-input", Input);
+Vue.component('w-icon', Icon)
+Vue.component('w-button', Button)
+Vue.component('w-button-group', ButtonGroup)
+Vue.component('w-input', Input)
 
 new Vue({
-  el: "#app",
+  el: '#app',
   data: {
     loading: false
+  },
+  methods: {
+    inputChange (e) {
+      console.log(e.target.value)
+    }
   }
-});
+})
