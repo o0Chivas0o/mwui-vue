@@ -20,17 +20,31 @@
             --border-color: #999;
             --border-color-hover: #666;
         }
+        .box {margin: 20px;}
     </style>
 </head>
 <body>
 <div id="app">
-    <w-button @click="loading = !loading" icon="download" :loading="loading">去下载</w-button>
-    <w-button-group style="">
-        <w-button icon="left">上一页</w-button>
-        <w-button>更多</w-button>
-        <w-button icon="right" icon-position="right">下一页</w-button>
-    </w-button-group>
-    <div id="test"></div>
+    <div class="box">
+        <w-input value="张三" disabled></w-input>
+    </div>
+    <div class="box">
+        <w-input value="李四" readonly></w-input>
+    </div>
+    <div class="box">
+        <w-input value="王五"></w-input>
+    </div>
+    <div class="box">
+        <w-input value="王" error="姓名不能少于2个字"></w-input>
+    </div>
+    <div style="margin:20px;">
+        <w-button @click="loading = !loading" icon="download" :loading="loading">去下载</w-button>
+        <w-button-group style="">
+            <w-button icon="left">上一页</w-button>
+            <w-button>更多</w-button>
+            <w-button icon="right" icon-position="right">下一页</w-button>
+        </w-button-group>
+    </div>
 </div>
 <script src="./src/app.js"></script>
 </body>

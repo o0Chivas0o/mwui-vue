@@ -5,16 +5,16 @@
 </template>
 <script>
   export default {
-    name:'button-group',
+    name: "WButtonGroup",
     mounted () {
       for (let node of this.$el.children) {
-        let name = node.nodeName.toLowerCase()
-        if (name !== 'button') {
-          console.warn(`w-button-group 的子元素应该全是 w-button`)
+        let name = node.nodeName.toLowerCase();
+        if (name !== "button") {
+          console.warn(`w-button-group 的子元素应该全是 w-button`);
         }
       }
     }
-  }
+  };
 </script>
 <style lang="scss" scoped>
     .w-button-group {

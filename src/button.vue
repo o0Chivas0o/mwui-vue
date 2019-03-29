@@ -8,21 +8,22 @@
     </button>
 </template>
 <script>
-  import Icon from './icon'
+  import Icon from "./icon";
 
   export default {
-    components:{'w-icon':Icon},
-    props:{
-      icon:{type:String,default:undefined},
-      loading:{type:Boolean,default:false},
-      iconPosition:{
-        type:String,default:'left',
+    name: "WButton",
+    components: {"w-icon": Icon},
+    props: {
+      icon: {type: String, default: undefined},
+      loading: {type: Boolean, default: false},
+      iconPosition: {
+        type: String, default: "left",
         validator (value) {
-          return value === 'left' || value === 'right'
+          return value === "left" || value === "right";
         }
       }
     }
-  }
+  };
 </script>
 <style lang="scss" scoped>
     @keyframes spin {

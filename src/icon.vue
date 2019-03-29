@@ -4,14 +4,14 @@
     </svg>
 </template>
 <script>
-  import './svg'
+  import "./svg";
 
   export default {
-    name:'icon',
-    props:{
-      name:{type:String,default:undefined}
+    name: "WIcon",
+    props: {
+      name: {type: String, default: undefined}
     }
-  }
+  };
 </script>
 <style lang="scss" scoped>
     .icon {width: 1em;height: 1em;}
