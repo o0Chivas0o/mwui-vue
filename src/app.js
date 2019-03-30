@@ -12,7 +12,8 @@ Vue.component('w-input', Input)
 new Vue({
   el: '#app',
   data: {
-    loading: false
+    loading: false,
+    message: 'hi'
   },
   methods: {
     inputChange (e) {

@@ -26,19 +26,8 @@
 <body>
 <div id="app">
     <div class="box">
-        <w-input value="张三" disabled></w-input>
-    </div>
-    <div class="box">
-        <w-input value="李四" readonly></w-input>
-    </div>
-    <div class="box">
-        <w-input value="王五"></w-input>
-    </div>
-    <div class="box">
-        <w-input value="王" @change="inputChange"></w-input>
-    </div>
-    <div class="box">
-        <w-input value="王" error="姓名不能少于2个字"></w-input>
+        <w-input v-model="message"></w-input>
+        <p>{{message}}</p>
     </div>
     <div style="margin:20px;">
         <w-button @click="loading = !loading" icon="download" :loading="loading">去下载</w-button>
