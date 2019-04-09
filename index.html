@@ -1,42 +1,46 @@
 <!DOCTYPE HTML>
 <html lang="zh-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>my-wheel</title>
-    <style>
-        * {box-sizing: border-box;margin: 0;padding: 0;}
-        #app {margin: 20px;}
-        body {font-size: var(--font-size);}
-        html {
-            --button-height: 32px;
-            --font-size: 14px;
-            --button-bg: white;
-            --button-active-bg: #eee;
-            --border-radius: 4px;
-            --color: #999;
-            --border-color: #999;
-            --border-color-hover: #666;
-        }
-        .box {margin: 20px;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>my-wheel</title>
+  <style>
+    * {box-sizing: border-box;margin: 0;padding: 0;}
+    #app {margin: 20px;}
+    body {font-size: var(--font-size);}
+    html {
+      --button-height: 32px;
+      --font-size: 14px;
+      --button-bg: white;
+      --button-active-bg: #eee;
+      --border-radius: 4px;
+      --color: #999;
+      --border-color: #999;
+      --border-color-hover: #666;
+    }
+    .box {margin: 20px;}
+  </style>
 </head>
 <body>
 <div id="app">
-    <div class="box">
-        <w-input v-model="message"></w-input>
-        <p>{{message}}</p>
-    </div>
-    <div style="margin:20px;">
-        <w-button @click="loading = !loading" icon="download" :loading="loading">去下载</w-button>
-        <w-button-group style="">
-            <w-button icon="left">上一页</w-button>
-            <w-button>更多</w-button>
-            <w-button icon="right" icon-position="right">下一页</w-button>
-        </w-button-group>
-    </div>
+  <w-row>
+    <w-col></w-col>
+    <w-col></w-col>
+  </w-row>
+  <div class="box">
+    <w-input v-model="message"></w-input>
+    <p>{{message}}</p>
+  </div>
+  <div style="margin:20px;">
+    <w-button @click="loading = !loading" icon="download" :loading="loading">去下载</w-button>
+    <w-button-group style="">
+      <w-button icon="left">上一页</w-button>
+      <w-button>更多</w-button>
+      <w-button icon="right" icon-position="right">下一页</w-button>
+    </w-button-group>
+  </div>
 </div>
 <script src="./src/app.js"></script>
 </body>
