@@ -5,24 +5,25 @@
 </template>
 
 <script>
+  let validator = (value) => {
+    let keys = Object.keys(value)
+    let valid = true
+    keys.forEach(key => {
+      if (!['span', 'offset'].includes(key)) {
+        valid = false
+      }
+    })
+    return valid
+  }
   export default {
     name: 'WCol',
     props: {
       span: {type: [Number, String]},
       offset: {type: [Number, String]},
-      phone: {
-        type: Object,
-        validator (value) {
-          let keys = Object.keys(value)
-          let valid = true
-          keys.forEach(key => {
-            if (!['span', 'offset'].includes(key)) {
-              valid = false
-            }
-          })
-          return valid
-        }
-      }
+      ipad: {type: Object, validator,},
+      narrowPc: {type: Object, validator,},
+      pc: {type: Object, validator,},
+      widePc: {type: Object, validator,}
     },
     data () {
       return {
@@ -31,11 +32,14 @@
     },
     computed: {
       colClass () {
-        let {span, offset, phone} = this
+        let {span, offset, ipad, narrowPc, pc, widePc} = this
+        let createClasses = this.createClasses
         return [
-          span && `col-${span}`,
-          offset && `offset-${offset}`,
-          ...(phone && [`col-phone-${phone.span}`,])
+          ...createClasses({span, offset}),
+          ...createClasses(ipad, 'ipad-'),
+          ...createClasses(narrowPc, 'narrow-pc-'),
+          ...createClasses(pc, 'pc-'),
+          ...createClasses(widePc, 'wide-pc-'),
         ]
       },
       colStyle () {
@@ -45,92 +49,86 @@
           paddingRight: gutter / 2 + 'px'
         }
       }
+    },
+    methods: {
+      createClasses (obj, str = '') {
+        if (!obj) {return []}
+        let array = []
+        if (obj.span) { array.push(`col-${str}${obj.span}`) }
+        if (obj.offset) { array.push(`offset-${str}${obj.offset}`) }
+        return array
+      }
     }
   }
 </script>
 
 <style scoped lang="scss">
   .col {
-    border: 1px solid;
     $class-prefix: col-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
-        width: ($n / 24)*100%;
+        width: ($n / 24) * 100%;
       }
     }
     $class-prefix: offset-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
-        margin-left: ($n / 24)*100%;
+        margin-left: ($n / 24) * 100%;
       }
     }
-    @media (max-width: 576px) {
-      $class-prefix: col-phone-;
-      @for $n from 1 through 24 {
-        &.#{$class-prefix}#{$n} {
-          width: ($n / 24)*100%;
-        }
-      }
-      $class-prefix: offset-phone-;
-      @for $n from 1 through 24 {
-        &.#{$class-prefix}#{$n} {
-          margin-left: ($n / 24)*100%;
-        }
-      }
-    }
-    @media(min-height: 577px) and (max-width: 768px) {
+    @media (min-width: 577px) {
       $class-prefix: col-ipad-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          width: ($n / 24)*100%;
+          width: ($n / 24) * 100%;
         }
       }
       $class-prefix: offset-ipad-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          margin-left: ($n / 24)*100%;
+          margin-left: ($n / 24) * 100%;
         }
       }
     }
-    @media(min-height: 769px) and (max-width: 992px) {
+    @media (min-width: 769px) { // 770
       $class-prefix: col-narrow-pc-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          width: ($n / 24)*100%;
+          width: ($n / 24) * 100%;
         }
       }
       $class-prefix: offset-narrow-pc-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          margin-left: ($n / 24)*100%;
+          margin-left: ($n / 24) * 100%;
         }
       }
     }
-    @media(min-height: 993px) and (max-width: 1200px) {
+    @media (min-width: 993px) {
       $class-prefix: col-pc-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          width: ($n / 24)*100%;
+          width: ($n / 24) * 100%;
         }
       }
       $class-prefix: offset-pc-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          margin-left: ($n / 24)*100%;
+          margin-left: ($n / 24) * 100%;
         }
       }
     }
-    @media(min-height: 1201px) {
+    @media (min-width: 1201px) {
       $class-prefix: col-wide-pc-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          width: ($n / 24)*100%;
+          width: ($n / 24) * 100%;
         }
       }
       $class-prefix: offset-wide-pc-;
       @for $n from 1 through 24 {
         &.#{$class-prefix}#{$n} {
-          margin-left: ($n / 24)*100%;
+          margin-left: ($n / 24) * 100%;
         }
       }
     }
