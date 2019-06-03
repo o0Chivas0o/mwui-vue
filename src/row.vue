@@ -19,10 +19,7 @@
     computed: {
       rowStyle () {
         let {gutter} = this
-        return {
-          paddingLeft: -gutter / 2 + 'px',
-          paddingRight: -gutter / 2 + 'px'
-        }
+        return {marginLeft: -gutter / 2 + 'px', marginRight: -gutter / 2 + 'px'}
       },
       rowClass () {
         let {align} = this

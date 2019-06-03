@@ -1,5 +1,3 @@
-process.env.CHROME_BIN = require('puppeteer').executablePath()
-
 module.exports = function (config) {
   config.set({
     
@@ -33,7 +31,7 @@ module.exports = function (config) {
     reporters: ['progress'],
     
     // web server port
-    port: 8888,
+    port: 9876,
     
     // enable / disable colors in the output (reporters and logs)
     colors: true,
