@@ -8,7 +8,6 @@
   <title>my-wheel</title>
   <style>
     * {box-sizing: border-box;margin: 0;padding: 0;}
-    #app {margin: 20px;}
     body {font-size: var(--font-size);}
     html {
       --button-height: 32px;
@@ -20,27 +19,34 @@
       --border-color: #999;
       --border-color-hover: #666;
     }
-    .box {margin: 20px;}
+    .demo {
+      min-height: 100px;
+      border: 1px solid #666;
+    }
+    .sider {
+      background: #333;
+      width: 200px;
+    }
+    .header {
+      background: #999;
+      height: 100px;
+    }
+    .footer {
+      background: #ccc;
+      height: 50px;
+    }
   </style>
 </head>
 <body>
 <div id="app">
-  <w-row gutter="20">
-    <w-col span="2" :phone="{span:12}">1</w-col>
-    <w-col span="20" offset="2" :phone="{span:12}">2</w-col>
-  </w-row>
-  <div class="box">
-    <w-input v-model="message"></w-input>
-    <p>{{message}}</p>
-  </div>
-  <div style="margin:20px;">
-    <w-button @click="loading = !loading" icon="download" :loading="loading">去下载</w-button>
-    <w-button-group style="">
-      <w-button icon="left">上一页</w-button>
-      <w-button>更多</w-button>
-      <w-button icon="right" icon-position="right">下一页</w-button>
-    </w-button-group>
-  </div>
+  <w-layout style="height: 100vh;">
+    <w-sider>sider</w-sider>
+    <w-layout>
+      <w-header>header</w-header>
+      <w-content>content</w-content>
+      <w-footer>footer</w-footer>
+    </w-layout>
+  </w-layout>
 </div>
 <script src="./src/app.js"></script>
 </body>

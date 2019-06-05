@@ -1,15 +1,15 @@
 <template>
-  <div class="footer">
+  <div class="header">
     <slot></slot>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'WFooter'
+    name: 'WHeader'
   }
 </script>
 
-<style scoped lang="scss">
-  .footer {}
+<style lang="scss" scoped>
+  .header {}
 </style>
