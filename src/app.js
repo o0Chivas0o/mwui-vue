@@ -30,9 +30,11 @@ Vue.use(plugin)
 new Vue({
   el: '#app',
   data: {},
+  created () {
+    this.$toast('我是 ', {})
+  },
   methods: {
     showToast () {
-      this.$toast('我是 toast')
     }
   }
 })
