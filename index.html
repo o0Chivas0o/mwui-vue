@@ -6,47 +6,25 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>my-wheel</title>
-  <style>
-    * {box-sizing: border-box;margin: 0;padding: 0;}
-    body {font-size: var(--font-size);}
-    html {
-      --button-height: 32px;
-      --font-size: 14px;
-      --button-bg: white;
-      --button-active-bg: #eee;
-      --border-radius: 4px;
-      --color: #999;
-      --border-color: #999;
-      --border-color-hover: #666;
-    }
-    .demo {
-      min-height: 100px;
-      border: 1px solid #666;
-    }
-    .sider {
-      background: #333;
-      width: 200px;
-    }
-    .header {
-      background: #999;
-      height: 100px;
-    }
-    .footer {
-      background: #ccc;
-      height: 50px;
-    }
-  </style>
 </head>
+<style>
+  * {box-sizing: border-box;margin: 0;padding: 0;}
+  #app {margin: 20px;}
+  body {font-size: var(--font-size);}
+  html {
+    --button-height: 32px;
+    --font-size: 14px;
+    --button-bg: white;
+    --button-active-bg: #eee;
+    --border-radius: 4px;
+    --color: #999;
+    --border-color: #999;
+    --border-color-hover: #666;
+  }
+</style>
 <body>
 <div id="app">
-  <w-layout style="height: 100vh;">
-    <w-sider>sider</w-sider>
-    <w-layout>
-      <w-header>header</w-header>
-      <w-content>content</w-content>
-      <w-footer>footer</w-footer>
-    </w-layout>
-  </w-layout>
+  <w-button @click="showToast">点我</w-button>
 </div>
 <script src="./src/app.js"></script>
 </body>

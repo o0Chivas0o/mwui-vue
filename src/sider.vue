@@ -19,13 +19,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-  {
-    margin-left: -200px;
-  }
+  .fade-enter-active, .fade-leave-active {transition: all .5s;}
+  .fade-enter, .fade-leave-to {margin-left: -200px;}
+  
   .sider {
     position: relative;
     > button {
