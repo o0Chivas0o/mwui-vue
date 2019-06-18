@@ -31,7 +31,10 @@ new Vue({
   el: '#app',
   data: {},
   created () {
-    this.$toast('我是 ', {})
+    this.$toast('我是 ', {
+      position: 'bottom',
+      autoClose: false
+    })
   },
   methods: {
     showToast () {
