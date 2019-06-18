@@ -4,8 +4,8 @@
       <slot v-if="!enableHtml"></slot>
       <div v-else v-html="$slots.default[0]"></div>
     </div>
-    <div class="line" ref="line"></div>
-    <span class="close" v-if="closeButton" @click="onClickClose">{{closeButton.text}}</span>
+    <div class="line" ref="line" v-show="closeButton.text"></div>
+    <span class="close" v-if="closeButton.text" @click="onClickClose">{{closeButton.text}}</span>
   </div>
 </template>
 
@@ -67,7 +67,12 @@
   $font-size: 14px;
   $toast-min-height: 40px;
   $toast-bg: rgba(0, 0, 0, .75);
+  @keyframes fade-in {
+    0% {opacity: 0;}
+    100% {opacity: 100%;}
+  }
   .toast {
+    animation: fade-in 1s;
     font-size: $font-size;line-height: 1.8;min-height: $toast-min-height;bottom: 1px solid red;
     display: flex;align-items: center;color: white;padding: 0 16px;
     background: $toast-bg;box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);border-radius: 4px;
@@ -78,7 +83,7 @@
     &.position-top {top: 0;left: 50%;transform: translateX(-50%);}
     &.position-left {top: 0;left: 0;}
     &.position-bottom {bottom: 0;left: 50%;transform: translateX(-50%);}
-    &.position-middle {top: 50%;transform: translate(-50%, -50%)}
+    &.position-middle {top: 50%;left: 50%;transform: translate(-50%, -50%)}
     &.position-right {top: 0;right: 0;}
   }
 </style>

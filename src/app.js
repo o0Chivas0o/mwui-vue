@@ -30,14 +30,15 @@ Vue.use(plugin)
 new Vue({
   el: '#app',
   data: {},
-  created () {
-    this.$toast('我是 ', {
-      position: 'bottom',
-      autoClose: false
-    })
-  },
+  created () {},
   methods: {
     showToast () {
+      this.$toast(`${parseInt(Math.random() * 100)}`, {
+        position: 'middle',
+        autoClose: true,
+        enableHtml: false,
+        autoCloseDelay: 2
+      })
     }
   }
 })
