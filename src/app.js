@@ -32,9 +32,41 @@ new Vue({
   data: {},
   created () {},
   methods: {
-    showToast () {
+    showToast1 () {
+      this.$toast(`${parseInt(Math.random() * 100)}`, {
+        position: 'top',
+        autoClose: true,
+        enableHtml: false,
+        autoCloseDelay: 2
+      })
+    },
+    showToast2 () {
+      this.$toast(`${parseInt(Math.random() * 100)}`, {
+        position: 'left',
+        autoClose: true,
+        enableHtml: false,
+        autoCloseDelay: 2
+      })
+    },
+    showToast3 () {
       this.$toast(`${parseInt(Math.random() * 100)}`, {
         position: 'middle',
+        autoClose: true,
+        enableHtml: false,
+        autoCloseDelay: 2
+      })
+    },
+    showToast4 () {
+      this.$toast(`${parseInt(Math.random() * 100)}`, {
+        position: 'right',
+        autoClose: true,
+        enableHtml: false,
+        autoCloseDelay: 2
+      })
+    },
+    showToast5 () {
+      this.$toast(`${parseInt(Math.random() * 100)}`, {
+        position: 'bottom',
         autoClose: true,
         enableHtml: false,
         autoCloseDelay: 2

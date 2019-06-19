@@ -16,7 +16,7 @@ function createToast ({Vue, message, propsData, onClose}) {
   let toast = new Constructor({propsData})
   toast.$slots.default = [message]
   toast.$mount() // 必须mount 否则生命周期都不会实现
-  this.$on('close', onClose)
+  toast.$on('close', onClose)
   document.body.appendChild(toast.$el)
   return toast
 }
