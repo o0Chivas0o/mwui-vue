@@ -15,8 +15,11 @@
   export default {
     name: 'WToast',
     props: {
-      autoClose: {type: Boolean, default: false},
-      autoCloseDelay: {type: Number, default: 5},
+      autoClose: {
+        type: [Boolean, Number],
+        default: 5,
+        validator (value) {return value === false || typeof value === 'number'}
+      },
       enableHtml: {type: Boolean, default: false},
       position: {
         type: String,
@@ -28,7 +31,7 @@
       closeButton: {
         type: Object,
         // 多个toast存在的情况下对象改变属性,不会互相影响
-        default: () => {return {text: '关闭', callback: undefined}}
+        default: () => {return {text: undefined, callback: undefined}}
       }
     },
     mounted () {
@@ -48,7 +51,7 @@
         if (this.autoClose) {
           setTimeout(() => {
             this.close()
-          }, this.autoCloseDelay * 1000)
+          }, this.autoClose * 1000)
         }
       },
       close () {
