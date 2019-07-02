@@ -6,7 +6,9 @@
 
 <script>
   export default {
-    name: 'WTabsContent'
+    name: 'WTabsContent',
+    inject: ['eventBus']
+  
   }
 </script>
 
