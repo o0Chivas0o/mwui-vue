@@ -12,10 +12,12 @@
   export default {
     name: 'WTabsNav',
     inject: ['eventBus'],
-    created () {
+    mounted () {
       this.eventBus.$on('update:selected', (item, vm) => {
-        console.log(item)
-        console.log(vm)
+        let {width, height, top, left} = vm.$el.getBoundingClientRect()
+        console.log(width, height, top, left)
+        this.$refs.line.style.width = `${width}px`
+        this.$refs.line.style.left = `${left}px`
       })
     }
   }
@@ -35,7 +37,7 @@
       position: absolute;
       bottom: 0;
       border-bottom: 1px solid $blue;
-      width: 100px;
+      transition: all .3s;
     }
     > .actions-wrapper {
       // 自动最右边
