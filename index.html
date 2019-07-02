@@ -24,11 +24,22 @@
 </style>
 <body>
 <div id="app">
-  <w-button @click="showToast1">top</w-button>
-  <w-button @click="showToast2">left</w-button>
-  <w-button @click="showToast3">middle</w-button>
-  <w-button @click="showToast4">right</w-button>
-  <w-button @click="showToast5">bottom</w-button>
+  <w-tabs :selected.sync="selectedTab">
+    <!--    <w-tabs selected="selectedTab" @update:selected="selectedTab = $event">-->
+    <w-tabs-nav>
+      <template slot="actions">
+        <w-button>1</w-button>
+      </template>
+      <w-tabs-item name="woman">美女</w-tabs-item>
+      <w-tabs-item name="finance">财经</w-tabs-item>
+      <w-tabs-item name="sports">体育</w-tabs-item>
+    </w-tabs-nav>
+    <w-tabs-content>
+      <w-tabs-pane name="woman">美女相关资讯</w-tabs-pane>
+      <w-tabs-pane name="finance">财经相关资讯</w-tabs-pane>
+      <w-tabs-pane name="sports">体育相关资讯</w-tabs-pane>
+    </w-tabs-content>
+  </w-tabs>
 </div>
 </body>
 <script src="./src/app.js"></script>

@@ -10,6 +10,11 @@ import Header from './header'
 import Sider from './sider'
 import Content from './content'
 import Footer from './footer'
+import Tabs from './tabs'
+import TabsNav from './tabs-nav'
+import TabsContent from './tabs-content'
+import TabsItem from './tabs-item'
+import TabsPane from './tabs-pane'
 import Toast from './toast'
 import plugin from './plugin'
 
@@ -25,48 +30,18 @@ Vue.component('w-sider', Sider)
 Vue.component('w-content', Content)
 Vue.component('w-footer', Footer)
 Vue.component('w-toast', Toast)
+Vue.component('w-tabs', Tabs)
+Vue.component('w-tabs-nav', TabsNav)
+Vue.component('w-tabs-item', TabsItem)
+Vue.component('w-tabs-content', TabsContent)
+Vue.component('w-tabs-pane', TabsPane)
 Vue.use(plugin)
 
 new Vue({
   el: '#app',
-  data: {},
+  data: {
+    selectedTab: 'sports'
+  },
   created () {},
-  methods: {
-    showToast1 () {
-      this.$toast(`${parseInt(Math.random() * 100)}`, {
-        position: 'top',
-        autoClose: 0,
-        enableHtml: false,
-        closeButton: {}
-      })
-    },
-    showToast2 () {
-      this.$toast(`${parseInt(Math.random() * 100)}`, {
-        position: 'left',
-        autoClose: 1,
-        enableHtml: false,
-      })
-    },
-    showToast3 () {
-      this.$toast(`${parseInt(Math.random() * 100)}`, {
-        position: 'middle',
-        autoClose: 1,
-        enableHtml: false,
-      })
-    },
-    showToast4 () {
-      this.$toast(`${parseInt(Math.random() * 100)}`, {
-        position: 'right',
-        autoClose: 1,
-        enableHtml: false,
-      })
-    },
-    showToast5 () {
-      this.$toast(`${parseInt(Math.random() * 100)}`, {
-        position: 'bottom',
-        autoClose: 1,
-        enableHtml: false,
-      })
-    }
-  }
+  methods: {}
 })
