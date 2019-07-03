@@ -18,7 +18,12 @@
       name: {type: String | Number, required: true}
     },
     computed: {
-      classes () {return {active: this.active}}
+      classes () {
+        return {
+          active: this.active,
+          disabled: this.disabled
+        }
+      }
     },
     created () {
       this.eventBus &&
