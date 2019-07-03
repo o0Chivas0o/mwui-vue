@@ -41,6 +41,10 @@
       transition: all .3s;
     }
     > .actions-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 1em;
       // 自动最右边
       margin-left: auto;
     }
