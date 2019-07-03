@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-nav">
+  <div class="tabs-nav" ref="nav">
     <slot></slot>
     <div class="line" ref="line"></div>
     <div class="actions-wrapper">
@@ -13,11 +13,12 @@
     name: 'WTabsNav',
     inject: ['eventBus'],
     mounted () {
+      let navLeft = this.$refs.nav.getBoundingClientRect().left
       this.eventBus.$on('update:selected', (item, vm) => {
         let {width, height, top, left} = vm.$el.getBoundingClientRect()
         console.log(width, height, top, left)
         this.$refs.line.style.width = `${width}px`
-        this.$refs.line.style.left = `${left}px`
+        this.$refs.line.style.left = `${left - navLeft}px`
       })
     }
   }
@@ -31,8 +32,8 @@
     height: $tab-height;
     justify-content: flex-starts;
     align-items: center;
-    border: 1px solid;
     position: relative;
+    border-bottom: 1px solid #dddddd;
     > .line {
       position: absolute;
       bottom: 0;

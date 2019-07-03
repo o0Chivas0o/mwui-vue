@@ -9,6 +9,7 @@
 </head>
 <style>
   * {box-sizing: border-box;margin: 0;padding: 0;}
+  #app {margin-left: 50px;}
   body {font-size: var(--font-size);}
   html {
     --button-height: 32px;
@@ -30,7 +31,8 @@
         <w-button>1</w-button>
       </template>
       <w-tabs-item name="woman">
-      <w-icon name="settings"></w-icon>  美女
+        <w-icon name="settings"></w-icon>
+        美女
       </w-tabs-item>
       <w-tabs-item name="finance" disabled>财经</w-tabs-item>
       <w-tabs-item name="sports">体育</w-tabs-item>
@@ -41,6 +43,7 @@
       <w-tabs-pane name="sports">体育相关资讯</w-tabs-pane>
     </w-tabs-content>
   </w-tabs>
+
 </div>
 </body>
 <script src="./src/app.js"></script>
