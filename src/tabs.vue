@@ -30,6 +30,10 @@
       }
     },
     mounted () {
+      if (this.$children.length === 0) {
+        console && console.warn &&
+        console.warn('tabs的子组件应该是tabs-nav和tabs-content,但是没有子组件 ')
+      }
       this.$children.forEach((vm) => {
         if (vm.$options.name === 'WTabsNav') {
           vm.$children.forEach((item) => {
