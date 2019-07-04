@@ -16,6 +16,7 @@ import TabsContent from './tabs-content'
 import TabsItem from './tabs-item'
 import TabsPane from './tabs-pane'
 import Toast from './toast'
+import Popover from './popover'
 import plugin from './plugin'
 
 Vue.component('w-icon', Icon)
@@ -35,6 +36,7 @@ Vue.component('w-tabs-nav', TabsNav)
 Vue.component('w-tabs-item', TabsItem)
 Vue.component('w-tabs-content', TabsContent)
 Vue.component('w-tabs-pane', TabsPane)
+Vue.component('w-popover', Popover)
 Vue.use(plugin)
 
 new Vue({
