@@ -1,6 +1,6 @@
 <template>
-  <div class="popover" @click.stop="xxx">
-    <div class="content-wrapper" v-if="visible" ref="contentWrapper" @click.stop>
+  <div class="popover" @click="onClick" ref="popover">
+    <div class="content-wrapper" v-if="visible" ref="contentWrapper">
       <slot name="content"></slot>
     </div>
     <span ref="triggerWrapper">
@@ -18,20 +18,35 @@
       }
     },
     methods: {
-      xxx () {
+      positionContent () {
+        document.body.appendChild(this.$refs.contentWrapper)
+        let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
+        this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+        this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
+      },
+      onClickDocument (e) {
+        if (!this.$refs.popover.contains(e.target)) {
+          this.close()
+        }
+      },
+      open () {
         this.visible = !this.visible
-        if (this.visible) {
-          let eventHandler = () => {
-            this.visible = false
-            document.removeEventListener('click', eventHandler)
+        this.$nextTick(() => {
+          this.positionContent()
+          document.addEventListener('click', this.onClickDocument)
+        })
+      },
+      close () {
+        this.visible = false
+        document.removeEventListener('click', this.onClickDocument)
+      },
+      onClick (event) {
+        if (this.$refs.triggerWrapper.contains(event.target)) {
+          if (!this.visible) {
+            this.open()
+          } else {
+            this.close()
           }
-          this.$nextTick(() => {
-            let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
-            this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
-            this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
-            document.body.appendChild(this.$refs.contentWrapper)
-            document.addEventListener('click', eventHandler)
-          })
         }
       }
     }
