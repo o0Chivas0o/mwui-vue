@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" @click="onClick" ref="popover">
+  <div class="popover" ref="popover">
     <div class="content-wrapper" v-if="visible" ref="contentWrapper" :class="{[`position-${position}`]:true}">
       <slot name="content"></slot>
     </div>
@@ -12,24 +12,53 @@
 <script>
   export default {
     name: 'WPopover',
-    data () {
-      return {
-        visible: false
+    data () {return {visible: false,}},
+    props: {
+      position: {
+        type: String,
+        default: 'top',
+        validator (value) {
+          return ['top', 'left', 'right', 'bottom'].indexOf(value) >= 0
+        },
+      },
+      trigger: {
+        type: String,
+        default: 'click',
+        validator (value) {
+          return ['click', 'hover'].indexOf(value) >= 0
+        }
       }
     },
-    props: {
-      position: String,
-      default: 'top',
-      validator (value) {
-        return ['top', 'left', 'right', 'bottom'].indexOf(value) >= 0
+    destroyed () {
+      if (this.trigger === 'click') {
+        this.$refs.popover.removeEventListener('click', this.onClick)
+      } else {
+        this.$refs.popover.removeEventListener('mouseenter', this.open)
+        this.$refs.popover.removeEventListener('mouseleave', this.close)
+      }
+    },
+    computed: {
+      openEvent () {
+        return this.trigger === 'click' ? 'click' : 'mouseenter'
+      },
+      closeEvent () {
+        return this.trigger === 'click' ? 'click' : 'mouseleave'
+      }
+    },
+    mounted () {
+      if (this.trigger === 'click') {
+        this.$refs.popover.addEventListener('click', this.onClick)
+      } else {
+        this.$refs.popover.addEventListener('mouseenter', this.open)
+        this.$refs.popover.addEventListener('mouseleave', this.close)
       }
     },
     methods: {
       positionContent () {
         const {contentWrapper, triggerWrapper} = this.$refs
+        document.body.appendChild(contentWrapper)
         const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
         const {height: height2} = contentWrapper.getBoundingClientRect()
-        document.body.appendChild(contentWrapper)
         let positions = {
           top: {top: top + window.scrollY, left: left + window.scrollX},
           bottom: {top: top + height + window.scrollY, left: left + window.scrollX},
