@@ -26,8 +26,9 @@
 <div id="app">
   <div style="padding:150px 0;">
     <w-popover position="bottom">
-      <template slot="content">
+      <template slot="content" slot-scope="{close}">
         我是内容
+        <w-button @click="close">关闭</w-button>
       </template>
       <w-button>点我</w-button>
     </w-popover>
