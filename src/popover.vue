@@ -27,28 +27,17 @@
     methods: {
       positionContent () {
         const {contentWrapper, triggerWrapper} = this.$refs
+        const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
+        const {height: height2} = contentWrapper.getBoundingClientRect()
         document.body.appendChild(contentWrapper)
-        let {width, height, top, left} = triggerWrapper.getBoundingClientRect()
-        let {height: height2} = contentWrapper.getBoundingClientRect()
-        switch (this.position) {
-          case 'top':
-            contentWrapper.style.left = left + window.scrollX + 'px'
-            contentWrapper.style.top = top + window.scrollY + 'px'
-            break
-          case 'bottom':
-            contentWrapper.style.left = left + window.scrollX + 'px'
-            contentWrapper.style.top = top + height + window.scrollY + 'px'
-            break
-          case 'left':
-            contentWrapper.style.left = left + window.scrollX + 'px'
-            contentWrapper.style.top = top + window.scrollY + (height - height2) / 2 + 'px'
-            break
-          case 'right':
-            contentWrapper.style.left = left + window.scrollX + width + 'px'
-            contentWrapper.style.top = top + window.scrollY + (height - height2) / 2 + 'px'
-            break
+        let positions = {
+          top: {top: top + window.scrollY, left: left + window.scrollX},
+          bottom: {top: top + height + window.scrollY, left: left + window.scrollX},
+          left: {top: top + window.scrollY + (height - height2) / 2, left: left + window.scrollX,},
+          right: {top: top + window.scrollY + (height - height2) / 2, left: left + window.scrollX + width}
         }
-        
+        contentWrapper.style.left = positions[this.position].left + 'px'
+        contentWrapper.style.top = positions[this.position].top + 'px'
       },
       onClickDocument (e) {
         if (this.$refs.popover && (this.$refs.popover.contains(e.target) || this.$refs.popover === e.target)) {return}
