@@ -29,14 +29,6 @@
         }
       }
     },
-    destroyed () {
-      if (this.trigger === 'click') {
-        this.$refs.popover.removeEventListener('click', this.onClick)
-      } else {
-        this.$refs.popover.removeEventListener('mouseenter', this.open)
-        this.$refs.popover.removeEventListener('mouseleave', this.close)
-      }
-    },
     computed: {
       openEvent () {
         return this.trigger === 'click' ? 'click' : 'mouseenter'
@@ -51,6 +43,14 @@
       } else {
         this.$refs.popover.addEventListener('mouseenter', this.open)
         this.$refs.popover.addEventListener('mouseleave', this.close)
+      }
+    },
+    destroyed () {
+      if (this.trigger === 'click') {
+        this.$refs.popover.removeEventListener('click', this.onClick)
+      } else {
+        this.$refs.popover.removeEventListener('mouseenter', this.open)
+        this.$refs.popover.removeEventListener('mouseleave', this.close)
       }
     },
     methods: {
@@ -109,26 +109,26 @@
     &.position-top {
       margin-top: -10px;
       transform: translateY(-100%);
-      &::before, &::after {left: 10px;}
+      &::before, &::after {left: 10px;border-bottom:none;}
       &::before {top: 100%;border-top-color: black;}
       &::after {top: calc(100% - 1px);border-top-color: white;}
     }
     &.position-bottom {
       margin-top: 10px;
-      &::before, &::after {left: 10px;}
+      &::before, &::after {left: 10px;border-top:none;}
       &::before {bottom: 100%;border-bottom-color: black;}
       &::after {bottom: calc(100% - 1px);border-bottom-color: white;}
     }
     &.position-left {
       margin-left: -10px;
       transform: translateX(-100%);
-      &::before, &::after {left: 100%;top: 50%;transform: translateY(-50%);}
+      &::before, &::after {left: 100%;top: 50%;transform: translateY(-50%);border-right:none;}
       &::before {border-left-color: black;}
       &::after {border-left-color: white;left: calc(100% - 1px);}
     }
     &.position-right {
       margin-left: 10px;
-      &::before, &::after {right: 100%;top: 50%;transform: translateY(-50%);}
+      &::before, &::after {right: 100%;top: 50%;transform: translateY(-50%);border-left:none;}
       &::before {border-right-color: black;}
       &::after {border-right-color: white;right: calc(100% - 1px);}
     }
