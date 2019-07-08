@@ -25,9 +25,8 @@
         this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
       },
       onClickDocument (e) {
-        if (!this.$refs.popover.contains(e.target)) {
-          this.close()
-        }
+        if (this.$refs.popover && (this.$refs.popover.contains(e.target) || this.$refs.popover === e.target)) {return}
+        this.close()
       },
       open () {
         this.visible = !this.visible
