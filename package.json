@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/o0Chivas0o/my-wheel#readme",
   "dependencies": {
-    "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-hot-reload-api": "^2.3.0"
   },
@@ -47,9 +46,10 @@
     "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
     "parcel-bundler": "^1.12.3",
-    "sinon": "^4.5.0",
+    "sinon": "^6.0.1",
     "sinon-chai": "^3.2.0",
     "vue-template-compiler": "^2.6.10",
-    "vuepress": "^1.0.2"
+    "vuepress": "^1.0.2",
+    "sass-loader": "^7.1.0"
   }
 }
