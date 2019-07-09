@@ -7,21 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>my-wheel</title>
 </head>
-<style>
-  * {box-sizing: border-box;margin: 0;padding: 0;}
-  #app {margin: 100px;}
-  body {font-size: var(--font-size);}
-  html {
-    --button-height: 32px;
-    --font-size: 14px;
-    --button-bg: white;
-    --button-active-bg: #eee;
-    --border-radius: 4px;
-    --color: #999;
-    --border-color: #999;
-    --border-color-hover: #666;
-  }
-</style>
 <body>
 <div id="app" style="padding: 100px">
   <w-collapse :selected.sync="selectedTab">
@@ -29,6 +14,7 @@
     <w-collapse-item title="标题2" name="2">内容2</w-collapse-item>
     <w-collapse-item title="标题3" name="3">内容3</w-collapse-item>
   </w-collapse>
+  <w-button icon="settings">123</w-button>
   {{selectedTab}}
 </div>
 </body>

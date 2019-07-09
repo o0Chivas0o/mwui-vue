@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npx parcel index.html --no-cache",
     "dev-test": "parcel watch test/* --no-cache & karma start",
-    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
+    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
@@ -26,7 +28,8 @@
   },
   "homepage": "https://github.com/o0Chivas0o/my-wheel#readme",
   "dependencies": {
-    "vue": "^2.5.16",
+    "sass-loader": "^7.1.0",
+    "vue": "^2.6.10",
     "vue-hot-reload-api": "^2.3.0"
   },
   "devDependencies": {
@@ -44,8 +47,9 @@
     "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
     "parcel-bundler": "^1.12.3",
-    "sinon": "^6.0.1",
+    "sinon": "^4.5.0",
     "sinon-chai": "^3.2.0",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.6.10",
+    "vuepress": "^1.0.2"
   }
 }
