@@ -123,8 +123,7 @@
 </script>
 
 <style lang="scss" scoped>
-  $border-color: black;
-  $border-radius: 4px;
+  @import 'var';
   .popover {display: inline-block;vertical-align: top;position: relative;}
   .content-wrapper {
     position: absolute;background: white; /*box-shadow: 0 0 3px rgba(0, 0, 0, .5);*/
