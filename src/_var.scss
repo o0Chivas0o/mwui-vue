@@ -1,6 +1,7 @@
 $blue: blue;
 $border-color-hover: #666;
 $border-color: #999;
+$border-color-light: lighten($border-color, 37%);
 $border-radius: 4px;
 $box-shadow-color: rgba(0, 0, 0, .5);
 $button-active-bg: #eee;
@@ -16,3 +17,6 @@ $red: #F1453D;
 $tab-height: 40px;
 $toast-bg: rgba(0, 0, 0, .75);
 $toast-min-height: 40px;
+.box-shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, .07);
+}
