@@ -29,14 +29,6 @@
         }
       }
     },
-    computed: {
-      openEvent () {
-        return this.trigger === 'click' ? 'click' : 'mouseenter'
-      },
-      closeEvent () {
-        return this.trigger === 'click' ? 'click' : 'mouseleave'
-      }
-    },
     mounted () {
       if (this.trigger === 'click') {
         this.$refs.popover.addEventListener('click', this.onClick)
