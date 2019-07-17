@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cascader :source="source" popoverHeight="200px"></cascader>
+    <cascader :source="source" popoverHeight="200px" :selected="selected" @update:selected="selected = $event"></cascader>
   </div>
 </template>
 
@@ -12,6 +12,7 @@
     components: {Cascader},
     data () {
       return {
+        selected: [],
         source: [
           {
             name: '湖北',
