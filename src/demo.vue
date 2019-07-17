@@ -6,6 +6,11 @@
 
 <script>
   import Cascader from './cascader'
+  import db from './db'
+  
+  function ajax (parent_id = 0) {
+    return db.filter(item => {return item.parent_id == parent_id})
+  }
   
   export default {
     name: 'demo',
@@ -13,26 +18,7 @@
     data () {
       return {
         selected: [],
-        source: [
-          {
-            name: '湖北',
-            children: [
-              {
-                name: '武汉',
-                children: [{name: '武昌'}, {name: '汉阳'}, {name: '汉口'}]
-              }
-            ]
-          },
-          {
-            name: '湖南',
-            children: [
-              {
-                name: '长沙',
-                children: [{name: '1区'}, {name: '2区'}, {name: '3区'}]
-              }
-            ]
-          }
-        ]
+        source: ajax()
       }
     }
   }

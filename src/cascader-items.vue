@@ -53,7 +53,7 @@
       padding: .3em 1em;display: flex;align-items: center;
       .icon {margin-left: .75em;transform: scale(.5)}
     }
-    .left {height: 100%;padding: .3em 0;}
+    .left {height: 100%;padding: .3em 0;overflow: auto;}
     .right {height: 100%;border-left: 1px solid $border-color-light;}
   }
 </style>
