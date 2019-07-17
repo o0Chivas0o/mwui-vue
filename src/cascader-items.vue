@@ -6,8 +6,8 @@
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <w-cascader-item :items="rightItems" :height="height" :level="level + 1" :selected="selected"
-                       @update:selected="onUpdateSelected"></w-cascader-item>
+      <w-cascader-item :items="rightItems" :height="height"
+                       :level="level+1" :selected="selected" @update:selected="onUpdateSelected"></w-cascader-item>
     </div>
   </div>
 </template>
@@ -21,7 +21,8 @@
     props: {
       items: {type: Array},
       height: {type: String},
-      selected: {type: Array, default: () => []}
+      selected: {type: Array, default: () => {return []}},
+      level: {type: Number, default: 0}
     },
     computed: {
       rightItems () {
@@ -36,6 +37,7 @@
       onClickLabel (item) {
         let copy = JSON.parse(JSON.stringify(this.selected))
         copy[this.level] = item
+        copy.splice(this.level + 1) // 一句话
         this.$emit('update:selected', copy)
       }
     }
