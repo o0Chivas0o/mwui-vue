@@ -2,6 +2,8 @@
   <div>
     <cascader :source.sync="source" popoverHeight="20em" :selected.sync="selected" @update:selected="xxx"
               :load-data="loadData"></cascader>
+    <cascader :source.sync="source" popoverHeight="20em" :selected.sync="selected" @update:selected="xxx"
+              :load-data="loadData"></cascader>
   </div>
 </template>
 
@@ -21,6 +23,9 @@
     return new Promise((success, fail) => {
       setTimeout(() => {
         let result = db.filter(item => item.parent_id === parentId)
+        result.forEach(node => {
+          return db.filter(item => item.parent_id === node.id).length > 0 ? node.isLeaf = false : node.isLeaf = true
+        })
         success(result)
       }, 300)
     })

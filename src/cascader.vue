@@ -1,10 +1,10 @@
 <template>
-  <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
+  <div class="cascader" ref="cascader" v-click-outside="close">
+    <div class="trigger" @click="toggle">
       {{result||`&nbsp;`}}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible" :style="{height:popoverHeight}">
-      <cascader-items :items="source" :height="popoverHeight" :selected="selected"
+      <cascader-items :items="source" :height="popoverHeight" :selected="selected" :loadData="loadData"
                       @update:selected="onUpdateSelected" @load-data="loadData"></cascader-items>
     </div>
   </div>
@@ -12,10 +12,12 @@
 
 <script>
   import CascaderItems from './cascader-items'
+  import ClickOutside from './click-outside'
   
   export default {
     name: 'WCascader',
     components: {CascaderItems},
+    directives: {ClickOutside},
     props: {
       source: {type: Array},
       popoverHeight: {type: String},
@@ -33,10 +35,18 @@
       }
     },
     methods: {
+      open () {
+        this.popoverVisible = true
+      },
+      close () {
+        this.popoverVisible = false
+      },
+      toggle () {
+        this.popoverVisible ? this.close() : this.open()
+      },
       onUpdateSelected (newSelected) {
         this.$emit('update:selected', newSelected)
         let item = newSelected[newSelected.length - 1]
-        
         
         let simplest = (children, id) => {return children.filter(item => item.id === id)[0]}
         let complex = (children, id) => {
@@ -58,14 +68,15 @@
           }
         }
         
-        
         let updateSource = (result) => {
           let copy = JSON.parse(JSON.stringify(this.source))
           let toUpdate = complex(copy, item.id)
           toUpdate.children = result
           this.$emit('update:source', copy)
         }
-        this.loadData(item, updateSource)
+        if (!item.isLeaf) {
+          this.loadData && this.loadData(item, updateSource)
+        }
       },
     }
   }
@@ -74,7 +85,7 @@
 <style lang="scss" scoped>
   @import 'var';
   .cascader {
-    position: relative;
+    position: relative;display: inline-block;
     .trigger {
       border: 1px solid $border-color-hover;border-radius: $border-radius;min-width: 10em;height: $height;
       display: inline-flex;align-items: center;padding: 0 1em;}
