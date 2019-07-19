@@ -26,8 +26,13 @@
     },
     computed: {
       rightItems () {
-        let currentSelected = this.selected[this.level]
-        return currentSelected && currentSelected.children ? currentSelected.children : null
+        if (this.selected && this.selected[this.level]) {
+          let item = this.items.filter(item => { return item.name === this.selected[this.level].name})[0]
+          if (item && item.children && item.children.length > 0) {return item.children}
+        }
+        
+        // let currentSelected = this.selected[this.level]
+        // return currentSelected && currentSelected.children ? currentSelected.children : null
       }
     },
     methods: {
