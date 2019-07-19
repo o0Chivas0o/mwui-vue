@@ -1,7 +1,7 @@
 <template>
   <div class="cascaderItems" :style="{height}">
     <div class="left">
-      <div class="label" v-for="item in items" @click="onClickLabel(item)">
+      <div class="label" v-for="(item,index) in items" :key="index" @click="onClickLabel(item)">
         <span class="name">{{item.name}}</span>
         <icon v-if="rightArrowVisible(item)" name="right"></icon>
       </div>
@@ -28,9 +28,11 @@
     },
     computed: {
       rightItems () {
-        if (this.selected && this.selected[this.level]) {
-          let item = this.items.filter(item => item.name === this.selected[this.level].name)[0]
-          if (item && item.children && item.children.length > 0) {return item.children}
+        if (this.selected[this.level]) {
+          let selected = this.items.filter((item) => item.name === this.selected[this.level].name)
+          if (selected && selected[0].children && selected[0].children.length > 0) {
+            return selected[0].children
+          }
         }
         // let currentSelected = this.selected[this.level]
         // return currentSelected && currentSelected.children ? currentSelected.children : null

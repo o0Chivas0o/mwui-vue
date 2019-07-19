@@ -74,8 +74,8 @@
           toUpdate.children = result
           this.$emit('update:source', copy)
         }
-        if (!item.isLeaf) {
-          this.loadData && this.loadData(item, updateSource)
+        if (!item.isLeaf && this.loadData) {
+          this.loadData(item, updateSource)
         }
       },
     }
