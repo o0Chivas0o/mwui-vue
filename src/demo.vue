@@ -1,6 +1,7 @@
 <template>
   <div>
-    <cascader :source="source" popoverHeight="200px" :selected.sync="selected"></cascader>
+    <cascader :source.sync="source" popoverHeight="20em" :selected.sync="selected" @update:selected="xxx"
+              :load-data="loadData"></cascader>
   </div>
 </template>
 
@@ -8,8 +9,21 @@
   import Cascader from './cascader'
   import db from './db'
   
-  function ajax (parent_id = 0) {
-    return db.filter(item => {return item.parent_id == parent_id})
+  function ajax (parentId = 0, success, fail) {
+    let id = setTimeout(() => {
+      let result = db.filter(item => item.parent_id === parentId)
+      success(result)
+    }, 300)
+    return id
+  }
+  
+  function promise (parentId = 0) {
+    return new Promise((success, fail) => {
+      setTimeout(() => {
+        let result = db.filter(item => item.parent_id === parentId)
+        success(result)
+      }, 300)
+    })
   }
   
   export default {
@@ -18,7 +32,26 @@
     data () {
       return {
         selected: [],
-        source: ajax()
+        source: []
+      }
+    },
+    created () {
+      promise(0).then(result => {
+        this.source = result
+      })
+    },
+    methods: {
+      loadData (item, updateSource) {
+        let {name, id, parent_id} = item
+        promise(id).then(result => {
+          updateSource(result)
+        })
+      },
+      xxx () {
+        promise(this.selected[0].id).then(result => {
+          let lastLevelSelected = this.source.filter(item => item.id === this.selected[0].id)[0]
+          this.$set(lastLevelSelected, 'children', result)
+        })
       }
     }
   }
