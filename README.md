@@ -36,8 +36,8 @@
    ```
 3. 引入 my-wheel
    ```javascript
-     import {Button, ButtonGroup, Icon} from 'my-wheel-test'
-     import 'my-wheel-test/dist/index.css'
+     import {Button, ButtonGroup, Icon} from 'my-wheel-tests'
+     import 'my-wheel-tests/dist/index.css'
 
      export default {
        name: 'app',
