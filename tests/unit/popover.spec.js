@@ -13,54 +13,34 @@ describe('Popover', () => {
     expect(Popover).exist
   })
   
-  xit('可以设置 position.', (done) => {
-    Vue.component('w-popover', Popover)
-    const div = document.createElement('div')
-    document.body.appendChild(div)
-    div.innerHTML = `
-    <w-popover position="bottom" ref="a">
-      <template slot="content" slot-scope="{close}">
-        我是内容
-        <button @click="close">关闭</button>
-      </template>
-      <button>点我</button>
-    </w-popover>
-    `
-    const vm = new Vue({
-      el: div
+  it('可以设置 position.', () => {
+    const wrapper = mount(Popover, {
+      slots: {
+        default: {template: `<button>点我</button>`},
+        content: '弹出内容'
+      },
+      propsData: {
+        position: 'top'
+      }
     })
-    vm.$nextTick(() => {
-      vm.$el.querySelector('button').click()
-      vm.$nextTick(() => {
-        expect(vm.$refs.a.$refs.contentWrapper.classList.contains('position-bottom')).to.be.true
-        done()
-      })
-    })
+    wrapper.find('button').trigger('click')
+    let classes = wrapper.find('.content-wrapper').classes()
+    expect(classes).to.include('position-top')
   })
   
-  xit('可以设置 trigger.', (done) => {
-    Vue.component('w-popover', Popover)
-    const div = document.createElement('div')
-    document.body.appendChild(div)
-    div.innerHTML = `
-    <w-popover trigger="hover" ref="a">
-      <template slot="content" slot-scope="{close}">
-        我是内容
-        <button @click="close">关闭</button>
-      </template>
-      <button>点我</button>
-    </w-popover>
-    `
-    const vm = new Vue({
-      el: div
+  xit('可以设置 trigger.', () => {
+    const wrapper = mount(Popover, {
+      slots: {
+        default: {template: `<button>点我</button>`},
+        content: '弹出内容'
+      },
+      propsData: {
+        position: 'top',
+        trigger: 'hover'
+      }
     })
-    setTimeout(() => {
-      const event = new Event('mouseenter')
-      vm.$el.dispatchEvent(event)
-      vm.$nextTick(() => {
-        const {contentWrapper} = vm.$refs.a.$refs
-        expect(contentWrapper).to.exist
-      })
-    })
+    expect(wrapper.find('.content-wrapper')).to.not.exist
+    wrapper.find('.popover').trigger('mouseenter')
+    expect(wrapper.find('.content-wrapper')).to.exist
   })
 })

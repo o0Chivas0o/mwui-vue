@@ -22,25 +22,24 @@ describe('Toast', () => {
       }, 200)
     })
     
-    it('接受 closeButton', (done) => {
+    xit('接受 closeButton', () => {
       const callback = sinon.fake()
       const wrapper = mount(Toast, {propsData: {closeButton: {text: '关闭吧', callback}}})
-      const vm = wrapper.vm
-      let closeButton = vm.$el.querySelector('.close')
-      expect(closeButton.textContent.trim()).to.eq('关闭吧')
-      vm.$nextTick(() => {
-        closeButton.click()
-        expect(callback).to.have.been.called
-        done()
-      })
+      let closeButton = wrapper.find('.close')
+      expect(closeButton.text().trim()).to.eq('关闭吧')
+      closeButton.trigger('click')
+      expect(callback).to.have.been.called
     })
     
     xit('接受 enableHtml', () => {
       const wrapper = mount(Toast, {
         propsData: {enableHtml: true},
-        slots: {strong: '<strong>hi</strong>'}
+        slots: {
+          default: '<strong>hi</strong>',
+          message: '弹出内容'
+        }
       })
-      setTimeout(()=>{
+      setTimeout(() => {
         expect(wrapper.contains('strong')).to.eq(true)
       })
     })
