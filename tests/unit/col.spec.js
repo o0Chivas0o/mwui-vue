@@ -5,7 +5,7 @@ import sinonChai from 'sinon-chai'
 chai.use(sinonChai)
 
 import { shallowMount, mount } from '@vue/test-utils'
-import Col from '../src/col'
+import Col from '@/col'
 
 
 describe('Col', () => {
