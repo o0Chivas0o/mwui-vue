@@ -3,12 +3,19 @@
     <div class="left">
       <div class="label" v-for="(item,index) in items" :key="index" @click="onClickLabel(item)">
         <span class="name">{{item.name}}</span>
-        <icon v-if="rightArrowVisible(item)" name="right"></icon>
+        <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <icon class="icon loading" name="loading"></icon>
+          </template>
+          <template v-else>
+            <icon class="icon arrow" v-if="rightArrowVisible(item)" name="right"></icon>
+          </template>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
       <w-cascader-item :items="rightItems" :height="height" :level="level+1" :selected="selected" :load-data="loadData"
-                       @update:selected="onUpdateSelected"></w-cascader-item>
+                       :loading-item="loadingItem" @update:selected="onUpdateSelected"></w-cascader-item>
     </div>
   </div>
 </template>
@@ -24,7 +31,8 @@
       height: {type: String},
       selected: {type: Array, default: () => {return []}},
       level: {type: Number, default: 0},
-      loadData: {type: Function}
+      loadData: {type: Function},
+      loadingItem: {type: Object, default: () => ({})}
     },
     computed: {
       rightItems () {
@@ -40,7 +48,6 @@
     },
     methods: {
       rightArrowVisible (item) {
-        console.log(item.isLeaf)
         return this.loadData ? !item.isLeaf : item.children
       },
       onUpdateSelected (newSelected) {
@@ -65,7 +72,11 @@
       padding: .3em 1em;display: flex;align-items: center;cursor: pointer;white-space: nowrap;
       &:hover {background: $grey;}
       .name {margin-right: 1em;user-select: none;}
-      .icon {margin-left: auto;transform: scale(.5)}
+      .icons {
+        margin-left: auto;
+        .arrow {transform: scale(.5);}
+        .loading {animation: spin 1s infinite linear;}
+      }
     }
     .left {height: 100%;padding: .3em 0;overflow: auto;}
     .right {height: 100%;border-left: 1px solid $border-color-light;}
