@@ -6,8 +6,8 @@ chai.use(sinonChai)
 
 import { shallowMount, mount } from '@vue/test-utils'
 
-import Row from '@/row'
-import Col from '@/col'
+import Row from '@/grid/row'
+import Col from '@/grid/col'
 
 
 

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import Icon from './icon'
+  import Icon from '@/icon/icon'
   
   export default {
     name: 'WCascaderItem',
@@ -65,7 +65,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '@/_var.scss';
+  
   .cascaderItems {
     display: flex;align-items: flex-start;justify-content: flex-start;white-space: nowrap;
     .label {

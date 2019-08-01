@@ -13,7 +13,7 @@
   </div>
 </template>
 <script>
-  import Icon from './icon'
+  import Icon from '@/icon/icon'
   
   export default {
     name: 'WInput',
@@ -27,7 +27,8 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import "var";
+  @import '@/_var.scss';
+  
   .wrapper {
     font-size: $font-size;display: inline-flex;align-items: center;
     > :not(:last-child) {margin-right: .5em;}

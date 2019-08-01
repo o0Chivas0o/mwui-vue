@@ -42,7 +42,8 @@
 </script>
 
 <style scoped lang="scss">
-  @import 'var';
+  @import '@/_var.scss';
+  
   .tabs-item {
     flex-shrink: 0;
     padding: 0 1em;

@@ -87,7 +87,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '@/_var.scss';
+  
   .cascader {
     position: relative;display: inline-block;
     .trigger {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Cascader from './cascader'
+  import Cascader from './cascader/cascader'
   import db from './db'
   
   // mock

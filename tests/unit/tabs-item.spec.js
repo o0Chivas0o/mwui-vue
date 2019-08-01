@@ -6,11 +6,11 @@ chai.use(sinonChai)
 
 import { shallowMount, mount } from '@vue/test-utils'
 
-import Tabs from '@/tabs'
-import TabsNav from '@/tabs-nav'
-import TabsContent from '@/tabs-content'
-import TabsItem from '@/tabs-item'
-import TabsPane from '@/tabs-pane'
+import Tabs from '@/tabs/tabs'
+import TabsNav from '@/tabs/tabs-nav'
+import TabsContent from '@/tabs/tabs-content'
+import TabsItem from '@/tabs/tabs-item'
+import TabsPane from '@/tabs/tabs-pane'
 
 
 describe('TabsItem', () => {

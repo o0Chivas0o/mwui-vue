@@ -70,8 +70,8 @@
 </script>
 
 <style scoped lang="scss">
-  @import 'var';
-
+  @import '@/_var.scss';
+  
   @keyframes slide-up {
     0% {opacity: 0;transform: translateY(100%)}
     100% {opacity: 100%;transform: translateY(0%)}

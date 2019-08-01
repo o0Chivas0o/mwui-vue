@@ -38,7 +38,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '@/_var.scss';
+  
   .collapseItem {
     > .title {
       border: 1px solid $grey;margin-top: -1px;margin-left: -1px;margin-right: -1px;min-height: 32px;

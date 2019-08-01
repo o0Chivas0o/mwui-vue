@@ -115,7 +115,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '@/_var.scss';
+  
   .popover {display: inline-block;vertical-align: top;position: relative;}
   .content-wrapper {
     position: absolute;background: white; /*box-shadow: 0 0 3px rgba(0, 0, 0, .5);*/
