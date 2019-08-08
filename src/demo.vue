@@ -1,59 +1,41 @@
 <template>
-  <div>
-    <cascader :source.sync="source" :selected.sync="selected" :load-data="loadData" popover-height="20em"></cascader>
-  </div>
+  <WSlides :selected.sync="selected">
+    <WSlidesItem name="1">
+      <div class="box">1</div>
+    </WSlidesItem>
+    <WSlidesItem name="2">
+      <div class="box">2</div>
+    </WSlidesItem>
+    <WSlidesItem name="3">
+      <div class="box">3</div>
+    </WSlidesItem>
+  </WSlides>
 </template>
 
 <script>
-  import Cascader from './cascader/cascader'
-  import db from './db'
-  
-  // mock
-  function ajax (parentId = 0, success, fail) {
-    let id = setTimeout(() => {
-      let result = db.filter(item => item.parent_id === parentId)
-      success(result)
-    })
-    return id
-  }
-  
-  function promise (parentId = 0) {
-    return new Promise((success, fail) => {
-      setTimeout(() => {
-        let result = db.filter(item => item.parent_id === parentId)
-        result.forEach(node => {
-          return db.filter(item => item.parent_id === node.id).length > 0 ? node.isLeaf = false : node.isLeaf = true
-        })
-        success(result)
-      }, 300)
-    })
-  }
+  import WSlides from './slides/slides'
+  import WSlidesItem from './slides/slides-item'
   
   export default {
     name: 'demo',
-    components: {Cascader},
+    components: {WSlides, WSlidesItem},
     data () {
       return {
-        selected: [],
-        source: []
+        selected: undefined
       }
     },
-    created () {
-      promise(0).then(result => {
-        this.source = result
-      })
-    },
-    methods: {
-      loadData (item, updateSource) {
-        let {name, id, parent_id} = item
-        promise(id).then(result => {
-          updateSource(result)
-        })
-      }
-    }
+    created () {},
+    methods: {}
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .box {
+    width: 200px;
+    height: 150px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
