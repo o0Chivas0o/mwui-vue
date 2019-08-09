@@ -1,5 +1,5 @@
 <template>
-  <WSlides :selected.sync="selected">
+  <WSlides :selected.sync="selected" class="wrapper">
     <WSlidesItem name="1">
       <div class="box">1</div>
     </WSlidesItem>
@@ -21,7 +21,7 @@
     components: {WSlides, WSlidesItem},
     data () {
       return {
-        selected: undefined
+        selected: '3'
       }
     },
     created () {},
@@ -30,9 +30,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .wrapper {
+    margin: 40px;
+  }
   .box {
-    width: 200px;
-    height: 150px;
+    height: 300px;
     background: #ddd;
     display: flex;
     justify-content: center;
