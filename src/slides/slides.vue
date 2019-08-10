@@ -8,13 +8,15 @@
       </div>
     </div>
     <div class="w-slides-dots">
-      <span @click="onClickPre">
+      <span @click="onClickPrev" data-action="prev">
         <w-icon name="left"></w-icon>
       </span>
-      <span v-for="n in childrenLength" :class="{active:selectedIndex === n-1}" @click="select(n-1)">
+      <span v-for="n in childrenLength" :class="{active:selectedIndex === n-1}" :key="n"
+            @click="select(n-1)"
+            :data-index="n-1">
         {{n}}
       </span>
-      <span @click="onClickNext">
+      <span @click="onClickNext" data-action="next">
         <w-icon name="right"></w-icon>
       </span>
     </div>
@@ -29,7 +31,8 @@
     components: {WIcon},
     props: {
       selected: {type: String},
-      autoPlay: {type: Boolean, default: true}
+      autoPlay: {type: Boolean, default: true},
+      autoPlayDelay: {type: Number, default: 3000}
     },
     data () {
       return {
@@ -53,14 +56,14 @@
     },
     mounted () {
       this.updateChildren()
-      this.playAutomatically()
+      if (this.autoPlay) {this.playAutomatically()}
       this.childrenLength = this.items.length
     },
     updated () {
       this.updateChildren()
     },
     methods: {
-      onClickPre () {
+      onClickPrev () {
         this.select(this.selectedIndex - 1)
       },
       onClickNext () {
@@ -103,9 +106,9 @@
           let index = this.names.indexOf(this.getSelected())
           let newIndex = index + 1
           this.select(newIndex) // 告诉外界选中 newIndex
-          this.timerId = setTimeout(run, 2000)
+          this.timerId = setTimeout(run, this.autoPlayDelay)
         }
-        this.timerId = setTimeout(run, 2000)
+        this.timerId = setTimeout(run, this.autoPlayDelay)
       },
       pause () {
         window.clearTimeout(this.timerId)
