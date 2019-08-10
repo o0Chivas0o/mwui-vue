@@ -8,16 +8,25 @@
       </div>
     </div>
     <div class="w-slides-dots">
+      <span @click="select(selectedIndex - 1)">
+        <w-icon name="left"></w-icon>
+      </span>
       <span v-for="n in childrenLength" :class="{active:selectedIndex === n-1}" @click="select(n-1)">
         {{n}}
+      </span>
+      <span @click="select(selectedIndex + 1)">
+        <w-icon name="right"></w-icon>
       </span>
     </div>
   </div>
 </template>
 
 <script>
+  import WIcon from '../icon/icon'
+  
   export default {
     name: 'WSlides',
+    components: {WIcon},
     props: {
       selected: {type: String},
       autoPlay: {type: Boolean, default: true}
@@ -53,9 +62,7 @@
         this.startTouch = e.touches[0]
         this.pause()
       },
-      onTouchMove () {
-      
-      },
+      onTouchMove () {},
       onTouchEnd (e) {
         let {clientX: x1, clientY: y1} = this.startTouch
         let {clientX: x2, clientY: y2} = e.changedTouches[0]
