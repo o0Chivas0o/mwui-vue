@@ -1,6 +1,6 @@
 <template>
   <div class="w-slides"
-       @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd"
+       @touchstart="onTouchStart" @touchend="onTouchEnd"
        @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <div class="w-slides-window">
       <div class="w-slides-wrapper" ref="window">
@@ -74,7 +74,6 @@
         this.startTouch = e.touches[0]
         this.pause()
       },
-      onTouchMove () {},
       onTouchEnd (e) {
         let {clientX: x1, clientY: y1} = this.startTouch
         let {clientX: x2, clientY: y2} = e.changedTouches[0]
@@ -120,10 +119,6 @@
         if (index === this.names.length) {index = 0}
         this.$emit('update:selected', this.names[index])
       },
-      getSelected () {
-        let first = this.items[0]
-        return this.selected || first.name
-      },
       updateChildren () {
         let selected = this.getSelected()
         this.items.forEach((vm) => {
@@ -141,6 +136,10 @@
             vm.selected = selected
           })
         })
+      },
+      getSelected () {
+        let first = this.items[0]
+        return this.selected || first.name
       }
     }
   }
