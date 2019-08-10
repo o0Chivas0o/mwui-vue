@@ -21,7 +21,7 @@
     components: {WSlides, WSlidesItem},
     data () {
       return {
-        selected: '3'
+        selected: undefined
       }
     },
     created () {},
