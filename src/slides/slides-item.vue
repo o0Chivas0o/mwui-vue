@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'WSlides-item',
+    name: 'WSlidesItem',
     props: {
       name: {type: String, required: true}
     },
@@ -28,7 +28,7 @@
 
 <style lang="scss" scoped>
   .slide-enter-active, .slide-leave-active {
-    transition: all 1s ease-in-out;
+    transition: all .5s;
   }
   .slide-leave-active {
     position: absolute;
