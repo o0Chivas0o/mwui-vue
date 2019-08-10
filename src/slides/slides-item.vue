@@ -28,7 +28,7 @@
 
 <style lang="scss" scoped>
   .slide-enter-active, .slide-leave-active {
-    transition: all 1s;
+    transition: all 2s;
   }
   .slide-leave-active {
     position: absolute;
@@ -50,7 +50,7 @@
     opacity: 0;
   }
   .slide-leave-to.reverse {
-    transform: translateX(0) scale(0.5);
+    transform: translateX(100%) scale(0.5);
     opacity: 0;
   }
 </style>
