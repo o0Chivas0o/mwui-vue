@@ -115,7 +115,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .popover {display: inline-block;vertical-align: top;position: relative;}
   .content-wrapper {

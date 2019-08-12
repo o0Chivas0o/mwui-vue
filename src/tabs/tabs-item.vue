@@ -42,7 +42,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .tabs-item {
     flex-shrink: 0;

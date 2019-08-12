@@ -26,7 +26,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .w-button {
     font-size: $font-size;height: $button-height;padding: 0 1em;border-radius: $border-radius;

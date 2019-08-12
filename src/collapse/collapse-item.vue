@@ -38,7 +38,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .collapseItem {
     > .title {

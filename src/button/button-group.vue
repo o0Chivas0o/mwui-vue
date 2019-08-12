@@ -17,7 +17,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .w-button-group {
     display: inline-flex;vertical-align: middle;

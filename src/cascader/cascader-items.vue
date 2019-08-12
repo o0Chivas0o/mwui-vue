@@ -65,7 +65,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .cascaderItems {
     display: flex;align-items: flex-start;justify-content: flex-start;white-space: nowrap;

@@ -51,7 +51,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .collapse {
     border: 1px solid $grey;

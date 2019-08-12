@@ -27,7 +27,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  @import '@/_var.scss';
+  @import '../style/var';
   
   .wrapper {
     font-size: $font-size;display: inline-flex;align-items: center;
