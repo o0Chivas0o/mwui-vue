@@ -1,27 +1,24 @@
 <template>
-  <WSlides :selected.sync="selected" class="wrapper">
-    <WSlidesItem name="1">
-      <div class="box">1</div>
-    </WSlidesItem>
-    <WSlidesItem name="2">
-      <div class="box">2</div>
-    </WSlidesItem>
-    <WSlidesItem name="3">
-      <div class="box">3</div>
-    </WSlidesItem>
-  </WSlides>
+  <div>
+    <w-nav :selected.sync='selected' :multiple="false">
+      <w-nav-item name="home">首页</w-nav-item>
+      <w-nav-item name="about">关于</w-nav-item>
+      <w-nav-item name="hire">招聘</w-nav-item>
+    </w-nav>
+  </div>
 </template>
 
 <script>
-  import WSlides from './slides/slides'
-  import WSlidesItem from './slides/slides-item'
+  import WNav from './nav/nav'
+  import WNavItem from './nav/nav-item'
+  import WNavSub from './nav/nav-sub'
   
   export default {
     name: 'demo',
-    components: {WSlides, WSlidesItem},
+    components: {WNav, WNavItem, WNavSub},
     data () {
       return {
-        selected: undefined
+        selected: ['home']
       }
     },
     created () {},
@@ -30,15 +27,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .wrapper {
-    margin: 40px;
-  }
-  .box {
-    height: 300px;
-    background: #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-  }
+  * {margin: 0;padding: 0;box-sizing: border-box}
 </style>
