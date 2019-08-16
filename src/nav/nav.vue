@@ -7,9 +7,19 @@
 <script>
   export default {
     name: 'WNav',
+    provide () {
+      return {
+        root: this
+      }
+    },
     props: {
       selected: {type: Array, default: () => []},
       multiple: {type: Boolean, default: false}
+    },
+    data () {
+      return {
+        items: []
+      }
     },
     mounted () {
       this.updateChildren()
@@ -18,15 +28,14 @@
     updated () {
       this.updateChildren()
     },
-    computed: {
-      items () {
-        return this.$children.filter(vm => {return vm.$options.name === 'WNavItem'})
-      }
-    },
     methods: {
+      addItem (vm) {
+        console.log(vm)
+        this.items.push(vm)
+      },
       updateChildren () {
         this.items.forEach(vm => {
-          vm.selected = this.selected.indexOf(vm.name) >= 0
+          vm.selected = this.selected.indexOf(vm.name) >= 0;
         })
       },
       listenToChildren () {

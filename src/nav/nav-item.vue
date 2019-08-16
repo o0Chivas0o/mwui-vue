@@ -7,6 +7,7 @@
 <script>
   export default {
     name: 'WNavItem',
+    inject: ['root'],
     props: {
       name: {type: [String], required: true}
     },
@@ -14,6 +15,9 @@
       return {
         selected: false
       }
+    },
+    created () {
+      this.root.addItem(this)
     },
     methods: {
       onClick () {
@@ -27,7 +31,7 @@
   @import '../style/var';
   
   .w-nav-item {
-    padding: 10px 20px;
+    padding: 10px 20px;cursor: pointer;
     &.selected {
       background: red;
     }
