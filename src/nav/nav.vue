@@ -34,7 +34,7 @@
       },
       updateChildren () {
         this.items.forEach(vm => {
-          vm.selected = this.selected.indexOf(vm.name) >= 0;
+          vm.selected = this.selected.indexOf(vm.name) >= 0
         })
       },
       listenToChildren () {
@@ -61,6 +61,8 @@
   
   .w-nav {
     display: flex;
-    border: 1px solid red;
+    border-bottom: 1px solid $grey;
+    color: black;
+    cursor: default;
   }
 </style>
