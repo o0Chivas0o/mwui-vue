@@ -30,7 +30,6 @@
     },
     methods: {
       addItem (vm) {
-        console.log(vm)
         this.items.push(vm)
       },
       updateChildren () {
