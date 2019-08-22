@@ -130,6 +130,7 @@ describe('Slides', () => {
       done()
     }, 21)
   })
+  
   it('可以点击上一张', (done) => {
     Vue.component('WSlidesItem', SlidesItem)
     const callback = sinon.fake();
@@ -162,6 +163,7 @@ describe('Slides', () => {
       done()
     }, 21)
   })
+  
   it('可以点击下一张', (done) => {
     Vue.component('WSlidesItem', SlidesItem)
     const callback = sinon.fake();
