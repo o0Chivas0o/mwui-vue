@@ -117,15 +117,11 @@
       &.open {transform: rotate(180deg);}
       &.vertical {
         transform: rotate(90deg);
-        &.open {
-          transform: rotate(270deg);
-        }
+        &.open {transform: rotate(270deg);}
       }
     }
     &.active {
-      &::after {
-        display: none;
-      }
+      &::after {display: none;}
     }
   }
 </style>

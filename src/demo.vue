@@ -28,7 +28,7 @@
     components: {WNav, WNavItem, WNavSub},
     data () {
       return {
-        selected: ['home']
+        selected: 'home'
       }
     },
     created () {},
