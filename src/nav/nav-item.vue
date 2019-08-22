@@ -9,7 +9,7 @@
     name: 'WNavItem',
     inject: ['root'],
     props: {
-      name: {type: [String], required: true}
+      name: {type: String, required: true}
     },
     data () {
       return {
@@ -21,6 +21,8 @@
     },
     methods: {
       onClick () {
+        this.root.namePath = []
+        this.$parent.updateNamePath && this.$parent.updateNamePath()
         this.$emit('add:selected', this.name)
       }
     }

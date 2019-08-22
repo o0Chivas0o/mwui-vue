@@ -2,11 +2,11 @@
   <div>
     <w-nav :selected.sync='selected' :multiple="false">
       <w-nav-item name="home">首页</w-nav-item>
-      <w-nav-sub>
+      <w-nav-sub name="about">
         <template slot="title">关于</template>
         <w-nav-item name="culture">企业文化</w-nav-item>
         <w-nav-item name="developers">开发团队</w-nav-item>
-        <w-nav-sub>
+        <w-nav-sub name="contact">
           <template slot="title">联系方式</template>
           <w-nav-item name="wechat">微信</w-nav-item>
           <w-nav-item name="qq">QQ</w-nav-item>

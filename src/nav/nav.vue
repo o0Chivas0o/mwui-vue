@@ -18,7 +18,8 @@
     },
     data () {
       return {
-        items: []
+        items: [],
+        namePath: []
       }
     },
     mounted () {
@@ -64,5 +65,6 @@
     border-bottom: 1px solid $grey;
     color: black;
     cursor: default;
+    user-select: none;
   }
 </style>
