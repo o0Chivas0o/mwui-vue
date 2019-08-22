@@ -1,8 +1,8 @@
 <template>
-  <div class="w-nav-sub" :class="{active}" v-click-outside="onClose">
+  <div class="w-nav-sub" :class="{active,vertical}" v-click-outside="onClose">
     <span class="w-nav-sub-label" @click="onClick">
     <slot name="title"></slot>
-      <span class="w-nav-sub-icon" :class="{open}">
+      <span class="w-nav-sub-icon" :class="{open,vertical}">
         <w-icon name="right"></w-icon>
       </span>
     </span>
@@ -13,7 +13,7 @@
         </div>
       </transition>
     </template>
-    <template>
+    <template v-else>
       <div class="w-nav-sub-popover" v-show="open" :class="{vertical}">
         <slot></slot>
       </div>
@@ -91,7 +91,7 @@
   
   .w-nav-sub {
     position: relative;cursor: pointer;
-    &.active {
+    &.active:not(.vertical) {
       &::after {
         content: '';position: absolute;bottom: 0;left: 0;border-bottom: 2px solid $blue;width: 100%;
       }
@@ -115,6 +115,12 @@
       display: inline-flex;margin-left: auto;transition: all .2s;
       svg {fill: $light-color}
       &.open {transform: rotate(180deg);}
+      &.vertical {
+        transform: rotate(90deg);
+        &.open {
+          transform: rotate(270deg);
+        }
+      }
     }
     &.active {
       &::after {

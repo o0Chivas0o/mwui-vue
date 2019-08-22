@@ -1,5 +1,5 @@
 <template>
-  <div class="w-nav-item" :class="{selected}" @click="onClick">
+  <div class="w-nav-item" :class="{selected,vertical}" @click="onClick">
     <slot></slot>
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
   export default {
     name: 'WNavItem',
-    inject: ['root'],
+    inject: ['root', 'vertical'],
     props: {
       name: {type: String, required: true}
     },
@@ -34,13 +34,21 @@
   
   .w-nav-item {
     padding: 10px 20px;position: relative;
-    &.selected {
-      &::after {
-        content: '';position: absolute;bottom: 0;left: 0;border-bottom: 2px solid $blue;width: 100%;
+    &:not(.vertical) {
+      &.selected {
+        &::after {
+          content: '';position: absolute;bottom: 0;left: 0;border-bottom: 2px solid $blue;width: 100%;
+        }
+      }
+    }
+    &.vertical {
+      &.selected {
+        color: $blue;
+        &::after {display: none;}
       }
     }
   }
-  .w-nav-sub .w-nav-item {
+  .w-nav-sub .w-nav-item:not(.vertical) {
     &.selected {
       background: $grey;
       color: $color;

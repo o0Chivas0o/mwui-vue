@@ -1,6 +1,6 @@
 <template>
   <div>
-    <w-nav :selected.sync='selected' :multiple="false" >
+    <w-nav :selected.sync='selected' :multiple="false" vertical>
       <w-nav-item name="home">首页</w-nav-item>
       <w-nav-sub name="about">
         <template slot="title">关于</template>
