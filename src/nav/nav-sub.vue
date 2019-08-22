@@ -6,9 +6,18 @@
         <w-icon name="right"></w-icon>
       </span>
     </span>
-    <div class="w-nav-sub-popover" v-show="open">
-      <slot></slot>
-    </div>
+    <template v-if="vertical">
+      <transition @enter="enter" @after-enter="afterEnter" @leave="leave" @after-leave="afterLeave">
+        <div class="w-nav-sub-popover" v-show="open" :class="{vertical}">
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template>
+      <div class="w-nav-sub-popover" v-show="open" :class="{vertical}">
+        <slot></slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -18,7 +27,7 @@
   
   export default {
     name: 'WNavSub',
-    inject: ['root'],
+    inject: ['root', 'vertical'],
     components: {WIcon},
     directives: {ClickOutside},
     props: {
@@ -48,6 +57,30 @@
         } else {
           // this.root.namePath = []
         }
+      },
+      enter (el, done) {
+        let {height} = el.getBoundingClientRect()
+        el.style.height = 0
+        el.getBoundingClientRect() // 浏览器会合并css属性 此行代码强制让高度先为0 后为120
+        el.style.height = `${height}px`
+        el.addEventListener('transitionend', () => { // 不以此形式监听 会造成没有动画 并且 after函数立即执行
+          done()
+        })
+      },
+      afterEnter (el) {
+        el.style.height = 'auto'
+      },
+      leave (el, done) {
+        let {height} = el.getBoundingClientRect()
+        el.style.height = `${height}px`
+        el.getBoundingClientRect()
+        el.style.height = 0
+        el.addEventListener('transitionend', () => {
+          done()
+        })
+      },
+      afterLeave (el) {
+        el.style.height = 'auto'
       }
     }
   }
@@ -55,6 +88,7 @@
 
 <style lang="scss" scoped>
   @import '../style/_var.scss';
+  
   .w-nav-sub {
     position: relative;cursor: pointer;
     &.active {
@@ -66,11 +100,16 @@
     &-label {padding: 10px 20px;display: block;}
     &-popover {
       position: absolute;top: 100%;left: 0;white-space: nowrap;background: white;margin-top: 4px;min-width: 8em;
-      box-shadow: 0 0 3px fade_out(black, 0.8);border-radius: $border-radius; font-size: $font-size;color: $light-color;
+      transition: height 300ms;box-shadow: 0 0 3px fade_out(black, 0.8);border-radius: $border-radius; font-size: $font-size;
+      color: $light-color;
+      &.vertical {position: static;border-radius: 0;border: none;box-shadow: none;overflow: hidden;}
     }
   }
   .w-nav-sub .w-nav-sub {
-    .w-nav-sub-popover {top: 0;left: 100%;margin-left: 8px;}
+    .w-nav-sub-popover {
+      top: 0;left: 100%;margin-left: 8px;
+      &.vertical {margin: 0;}
+    }
     .w-nav-sub-label { display: flex;align-items: center;padding: 10px 10px 10px 20px;}
     .w-nav-sub-icon {
       display: inline-flex;margin-left: auto;transition: all .2s;

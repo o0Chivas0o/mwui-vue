@@ -1,5 +1,5 @@
 <template>
-  <div class="w-nav">
+  <div class="w-nav" :class="{vertical:vertical}">
     <slot></slot>
   </div>
 </template>
@@ -9,12 +9,14 @@
     name: 'WNav',
     provide () {
       return {
-        root: this
+        root: this,
+        vertical: this.vertical
       }
     },
     props: {
       selected: {type: Array, default: () => []},
-      multiple: {type: Boolean, default: false}
+      multiple: {type: Boolean, default: false},
+      vertical: {type: Boolean, default: false}
     },
     data () {
       return {
@@ -66,5 +68,8 @@
     color: black;
     cursor: default;
     user-select: none;
+    &.vertical {
+      flex-direction: column; border: 1px solid $grey;
+    }
   }
 </style>
