@@ -8,11 +8,11 @@ import { shallowMount, mount } from '@vue/test-utils'
 
 import Toast from '@/toast/toast'
 
-xdescribe('Toast', () => {
+describe('Toast', () => {
   it('存在.', () => {
     expect(Toast).to.exist
   })
-  describe('props', function () {
+  xdescribe('props', function () {
     it('接受 autoClose', (done) => {
       const wrapper = mount(Toast, {propsData: {autoClose: 1}, attachToDocument: true})
       const vm = wrapper.vm
@@ -31,7 +31,7 @@ xdescribe('Toast', () => {
       expect(callback).to.have.been.called
     })
     
-    it('接受 enableHtml', () => {
+    xit('接受 enableHtml', () => {
       const wrapper = mount(Toast, {
         propsData: {enableHtml: true},
         slots: {
