@@ -36,7 +36,7 @@ describe('Slides.vue', () => {
     setTimeout(() => {
       expect(wrapper.find('.box1').exists()).to.be.true
       done()
-    },10)
+    })
   })
   it('selected 是几，选中的就是几', (done) => {
     Vue.component('WSlidesItem', SlidesItem)

@@ -8,7 +8,7 @@ import { shallowMount, mount } from '@vue/test-utils'
 
 import Toast from '@/toast/toast'
 
-describe('Toast', () => {
+xdescribe('Toast', () => {
   it('存在.', () => {
     expect(Toast).to.exist
   })
@@ -22,7 +22,7 @@ describe('Toast', () => {
       }, 200)
     })
     
-    xit('接受 closeButton', () => {
+    it('接受 closeButton', () => {
       const callback = sinon.fake()
       const wrapper = mount(Toast, {propsData: {closeButton: {text: '关闭吧', callback}}})
       let closeButton = wrapper.find('.close')
@@ -31,7 +31,7 @@ describe('Toast', () => {
       expect(callback).to.have.been.called
     })
     
-    xit('接受 enableHtml', () => {
+    it('接受 enableHtml', () => {
       const wrapper = mount(Toast, {
         propsData: {enableHtml: true},
         slots: {

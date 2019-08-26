@@ -14,7 +14,7 @@ import NavSub from '@/nav/nav-sub'
 describe('Nav', () => {
   
   it('存在.', () => {
-    expect(Nav).exist
+    expect(Nav).to.exist
   })
   
   it('支持 selected 属性', () => {
@@ -41,7 +41,7 @@ describe('Nav', () => {
       }
     })
     setTimeout(() => {
-      wrapper.find('[data-name="home"].selected').exists().to.be.true
+      expect(wrapper.find('[data-name="home"].selected').exists()).to.be.true
     })
   })
   
