@@ -1,35 +1,17 @@
 <template>
   <div>
-    <w-nav :selected.sync='selected' :multiple="false" vertical>
-      <w-nav-item name="home">首页</w-nav-item>
-      <w-nav-sub name="about">
-        <template slot="title">关于</template>
-        <w-nav-item name="culture">企业文化</w-nav-item>
-        <w-nav-item name="developers">开发团队</w-nav-item>
-        <w-nav-sub name="contact">
-          <template slot="title">联系方式</template>
-          <w-nav-item name="wechat">微信</w-nav-item>
-          <w-nav-item name="qq">QQ</w-nav-item>
-          <w-nav-item name="phone">手机</w-nav-item>
-        </w-nav-sub>
-      </w-nav-sub>
-      <w-nav-item name="hire">招聘</w-nav-item>
-    </w-nav>
+    <w-pagination :total-page="10" :current-page="3"></w-pagination>
   </div>
 </template>
 
 <script>
-  import WNav from './nav/nav'
-  import WNavItem from './nav/nav-item'
-  import WNavSub from './nav/nav-sub'
+  import WPagination from '@/pagination/pagination'
   
   export default {
     name: 'demo',
-    components: {WNav, WNavItem, WNavSub},
+    components: {WPagination},
     data () {
-      return {
-        selected: 'home'
-      }
+      return {}
     },
     created () {},
     methods: {}
