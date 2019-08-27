@@ -1,6 +1,6 @@
 <template>
   <div>
-    <w-pagination :total-page="10" :current-page="10"></w-pagination>
+    <w-pagination :total-page="1" :current-page.sync="currentPage"></w-pagination>
   </div>
 </template>
 
@@ -11,7 +11,9 @@
     name: 'demo',
     components: {WPagination},
     data () {
-      return {}
+      return {
+        currentPage: 1
+      }
     },
     created () {},
     methods: {}
