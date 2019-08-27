@@ -1,6 +1,6 @@
 <template>
   <div>
-    <w-pagination :total-page="10" :current-page="3"></w-pagination>
+    <w-pagination :total-page="10" :current-page="10"></w-pagination>
   </div>
 </template>
 
