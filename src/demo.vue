@@ -2,7 +2,8 @@
   <div>
     <div>
       {{selected}}
-      <w-table :columns="columns" :data-source="dataSource" bordered :selected-items.sync="selected"></w-table>
+      <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
+               :selected-items.sync="selected"></w-table>
     </div>
     <div style="margin-top: 20px;">
       <w-table :columns="columns" :data-source="dataSource" :bordered="true" :compact="true" :striped="false"></w-table>
@@ -28,6 +29,10 @@
           {text: '姓名', field: 'name'},
           {text: '分数', field: 'score'},
         ],
+        orderBy: {
+          name: true,
+          score: 'desc'
+        },
         dataSource: [
           {id: 11, name: 'zjl', score: 100},
           {id: 22, name: 'lzy', score: 99},

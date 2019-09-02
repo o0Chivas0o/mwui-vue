@@ -41,6 +41,6 @@
       > .content {order: 1;}
       > .icon {order: 2;margin-right: 0;margin-left: .1em;}
     }
-    .loading {animation: spin 1s infinite linear;}
+    .loading {@include spin;}
   }
 </style>
