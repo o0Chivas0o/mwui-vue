@@ -2,7 +2,7 @@
   <div>
     <div>
       <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
-               :selected-items.sync="selected" height="200px"></w-table>
+               :selected-items.sync="selected" :height="200" :loading="loading" @update:orderBy="order"></w-table>
     </div>
     <div style="margin-top: 20px;">
       <w-table :columns="columns" :data-source="dataSource" :bordered="true" :compact="true" :striped="false"></w-table>
@@ -24,8 +24,9 @@
       return {
         currentPage: 1,
         selected: [],
+        loading: false,
         columns: [
-          {text: '姓名', field: 'name'},
+          {text: '姓名', field: 'name', width: 100},
           {text: '分数', field: 'score'},
         ],
         orderBy: {
@@ -55,7 +56,15 @@
       }
     },
     created () {},
-    methods: {}
+    methods: {
+      order () {
+        this.loading = true
+        setTimeout(() => {
+          this.dataSource.sort((a, b) => {return a.score - b.score})
+          this.loading = false
+        }, 1000)
+      }
+    }
   }
 </script>
 

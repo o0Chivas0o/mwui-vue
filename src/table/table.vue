@@ -1,15 +1,15 @@
 <template>
   <div class="w-table-wrapper" ref="wrapper">
-    <div :style="{height,overflow:'auto'}">
+    <div :style="{height,overflow:'auto'}" ref="tableWrapper">
       <table class="w-table" :class="{bordered,compact,striped}" ref="table">
         <thead>
         <tr>
-          <th>
+          <th :style="{width:'50px'}">
             <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
                    :checked="areAllItemsSelected">
           </th>
-          <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.field">
+          <th :style="{width:'50px'}" v-if="numberVisible">#</th>
+          <th :style="{width:column.width + 'px'}" v-for="column in columns" :key="column.field">
             <div class="w-table-header">
               {{column.text}}
               <span v-if="column.field in orderBy" class="w-table-sorter" @click="changeOrderBy(column.field)">
@@ -22,13 +22,13 @@
         </thead>
         <tbody>
         <tr v-for=" (item,index) in dataSource" :key="item.id">
-          <th>
+          <td :style="{width:'50px'}">
             <input type="checkbox" @change="onChangeItem(item,index,$event)"
                    :checked="inSelectedItems(item)">
-          </th>
-          <td v-if="numberVisible">{{index+1}}</td>
+          </td>
+          <td :style="{width:'50px'}" v-if="numberVisible">{{index+1}}</td>
           <template v-for="column in columns">
-            <td :key="column.field">{{item[column.field]}}</td>
+            <td :style="{width:column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
           </template>
         </tr>
         </tbody>
@@ -47,7 +47,7 @@
     name: 'WTable',
     components: {WIcon},
     props: {
-      height: {type: [Number, String]},
+      height: {type: Number},
       selectedItems: {type: Array, default: () => []},
       loading: {type: Boolean, default: false},
       compact: {type: Boolean, default: false},
@@ -85,35 +85,20 @@
       }
     },
     mounted () {
-      let table2 = this.$refs.table.cloneNode(true)
+      let table2 = this.$refs.table.cloneNode(false)
       this.table2 = table2
       table2.classList.add('w-table-copy')
+      let thead = this.$refs.table.children[0]
+      let {height} = thead.getBoundingClientRect()
+      this.$refs.tableWrapper.style.marginTop = height + 'px'
+      this.$refs.tableWrapper.style.height = this.height - height + 'px'
+      table2.appendChild(thead)
       this.$refs.wrapper.appendChild(table2)
-      this.updateHeadersWidth()
-      this.onWindowResize = () => this.updateHeadersWidth()
-      window.addEventListener('resize', this.onWindowResize)
     },
     beforeDestroy () {
-      window.removeEventListener('resize', this.onWindowResize)
       this.table2.remove()
     },
     methods: {
-      updateHeadersWidth () {
-        let table2 = this.table2
-        let tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
-        let tableHeader2
-        Array.from(table2.children).map(node => {
-          if (node.tagName.toLowerCase() !== 'thead') {
-            node.remove()
-          } else {
-            tableHeader2 = node
-          }
-        })
-        Array.from(tableHeader.children[0].children).map((th, i) => {
-          const {width} = th.getBoundingClientRect()
-          tableHeader2.children[0].children[i].style.width = width + 'px'
-        })
-      },
       changeOrderBy (key) {
         const copy = JSON.parse(JSON.stringify(this.orderBy))
         let oldValue = copy[key]
@@ -184,6 +169,6 @@
       background: rgba(255, 255, 255, .9);
       svg {@include spin;width: 50px;height: 50px;}
     }
-    &-copy {position: absolute;top: 0;left: 0;background: white;}
+    &-copy {position: absolute;top: 0;left: 0;background: white;z-index: 10}
   }
 </style>
