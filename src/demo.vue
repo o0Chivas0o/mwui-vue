@@ -1,9 +1,8 @@
 <template>
   <div>
     <div>
-      {{selected}}
       <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
-               :selected-items.sync="selected"></w-table>
+               :selected-items.sync="selected" height="200px"></w-table>
     </div>
     <div style="margin-top: 20px;">
       <w-table :columns="columns" :data-source="dataSource" :bordered="true" :compact="true" :striped="false"></w-table>
@@ -40,6 +39,18 @@
           {id: 44, name: 'lzy', score: 97},
           {id: 55, name: 'zjl', score: 96},
           {id: 66, name: 'lzy', score: 95},
+          {id: 77, name: 'zjl', score: 100},
+          {id: 88, name: 'lzy', score: 99},
+          {id: 99, name: 'zjl', score: 98},
+          {id: 12, name: 'lzy', score: 97},
+          {id: 13, name: 'zjl', score: 96},
+          {id: 14, name: 'lzy', score: 95},
+          {id: 15, name: 'zjl', score: 100},
+          {id: 16, name: 'lzy', score: 99},
+          {id: 17, name: 'zjl', score: 98},
+          {id: 18, name: 'lzy', score: 97},
+          {id: 19, name: 'zjl', score: 96},
+          {id: 21, name: 'lzy', score: 95},
         ]
       }
     },
