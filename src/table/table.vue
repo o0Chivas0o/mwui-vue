@@ -4,7 +4,8 @@
       <table class="w-table" :class="{bordered,compact,striped}" ref="table">
         <thead>
         <tr>
-          <th :style="{width:'50px'}">
+          <th :style="{width:'50px'}" class="w-table-center"></th>
+          <th :style="{width:'50px'}" class="w-table-center">
             <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
                    :checked="areAllItemsSelected">
           </th>
@@ -21,16 +22,27 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for=" (item,index) in dataSource" :key="item.id">
-          <td :style="{width:'50px'}">
-            <input type="checkbox" @change="onChangeItem(item,index,$event)"
-                   :checked="inSelectedItems(item)">
-          </td>
-          <td :style="{width:'50px'}" v-if="numberVisible">{{index+1}}</td>
-          <template v-for="column in columns">
-            <td :style="{width:column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
-          </template>
-        </tr>
+        <template v-for=" (item,index) in dataSource">
+          <tr :key="item.id">
+            <td :style="{width:'50px'}" class="w-table-center">
+              <w-icon class="w-table-expend-icon" name="right" @click="expendItem(item.id)"
+                      :class="{active}"></w-icon>
+            </td>
+            <td :style="{width:'50px'}" class="w-table-center">
+              <input type="checkbox" @change="onChangeItem(item,index,$event)"
+                     :checked="inSelectedItems(item)">
+            </td>
+            <td :style="{width:'50px'}" v-if="numberVisible">{{index+1}}</td>
+            <template v-for="column in columns">
+              <td :style="{width:column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
+            </template>
+          </tr>
+          <tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
+            <td :colspan="columns.length + 2">
+              {{item[expendField] || '空'}}
+            </td>
+          </tr>
+        </template>
         </tbody>
       </table>
     </div>
@@ -46,8 +58,15 @@
   export default {
     name: 'WTable',
     components: {WIcon},
+    data () {
+      return {
+        expendedIds: [],
+        active: false
+      }
+    },
     props: {
       height: {type: Number},
+      expendField: {type: String},
       selectedItems: {type: Array, default: () => []},
       loading: {type: Boolean, default: false},
       compact: {type: Boolean, default: false},
@@ -127,6 +146,20 @@
       onChangeAllItems (e) {
         let selected = e.target.checked
         this.$emit('update:selectedItems', selected ? this.dataSource : [])
+      },
+      expendItem (id) {
+        if (this.inExpendedIds(id)) {
+          this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
+          console.log(this.expendedIds)
+          this.active = false
+        } else {
+          this.expendedIds.push(id)
+          this.active = true
+          console.log(this.expendedIds)
+        }
+      },
+      inExpendedIds (id) {
+        return this.expendedIds.indexOf(id) >= 0
       }
     }
   }
@@ -170,5 +203,10 @@
       svg {@include spin;width: 50px;height: 50px;}
     }
     &-copy {position: absolute;top: 0;left: 0;background: white;z-index: 10}
+    &-expend-icon {
+      width: 10px;height: 10px;
+      &.active {transform: rotate(90deg);transition: all .2s}
+    }
+    & &-center {text-align: center;}
   }
 </style>

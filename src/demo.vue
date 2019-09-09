@@ -2,7 +2,8 @@
   <div>
     <div>
       <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
-               :selected-items.sync="selected" :height="200" :loading="loading" @update:orderBy="order"></w-table>
+               expend-field="description" :height="200" @update:orderBy="order"
+               :selected-items.sync="selected" :loading="loading"></w-table>
     </div>
     <div style="margin-top: 20px;">
       <w-table :columns="columns" :data-source="dataSource" :bordered="true" :compact="true" :striped="false"></w-table>
@@ -34,8 +35,8 @@
           score: 'desc'
         },
         dataSource: [
-          {id: 11, name: 'zjl', score: 100},
-          {id: 22, name: 'lzy', score: 99},
+          {id: 11, name: 'zjl', score: 100, description: 'xxx'},
+          {id: 22, name: 'lzy', score: 99, description: 'yyy'},
           {id: 33, name: 'zjl', score: 98},
           {id: 44, name: 'lzy', score: 97},
           {id: 55, name: 'zjl', score: 96},
