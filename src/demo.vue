@@ -3,7 +3,12 @@
     <div>
       <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
                expend-field="description" :height="200" @update:orderBy="order"
-               :selected-items.sync="selected" :loading="loading"></w-table>
+               :selected-items.sync="selected" :loading="loading">
+        <template slot-scope="item">
+          <button @click="edit(item)">编辑</button>
+          <button @click="view(item)">查看</button>
+        </template>
+      </w-table>
     </div>
     <div style="margin-top: 20px;">
       <w-table :columns="columns" :data-source="dataSource" :bordered="true" :compact="true" :striped="false"></w-table>
@@ -64,6 +69,12 @@
           this.dataSource.sort((a, b) => {return a.score - b.score})
           this.loading = false
         }, 1000)
+      },
+      edit (item) {
+        alert(`${JSON.stringify(item)},编辑`)
+      },
+      view (item) {
+        alert(`${JSON.stringify(item)},查看 `)
       }
     }
   }

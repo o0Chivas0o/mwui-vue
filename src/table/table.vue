@@ -4,8 +4,8 @@
       <table class="w-table" :class="{bordered,compact,striped}" ref="table">
         <thead>
         <tr>
-          <th :style="{width:'50px'}" class="w-table-center"></th>
-          <th :style="{width:'50px'}" class="w-table-center">
+          <th v-if="expendField" :style="{width:'50px'}" class="w-table-center"></th>
+          <th v-if="checkable" :style="{width:'50px'}" class="w-table-center">
             <input ref="allChecked" type="checkbox" @change="onChangeAllItems"
                    :checked="areAllItemsSelected">
           </th>
@@ -19,16 +19,17 @@
             </span>
             </div>
           </th>
+          <th v-if="$scopedSlots.default" ref="actionsHeader"></th>
         </tr>
         </thead>
         <tbody>
         <template v-for=" (item,index) in dataSource">
           <tr :key="item.id">
-            <td :style="{width:'50px'}" class="w-table-center">
+            <td :style="{width:'50px'}" class="w-table-center" v-if="expendField">
               <w-icon class="w-table-expend-icon" name="right" @click="expendItem(item.id)"
                       :class="{active}"></w-icon>
             </td>
-            <td :style="{width:'50px'}" class="w-table-center">
+            <td :style="{width:'50px'}" class="w-table-center" v-if="checkable">
               <input type="checkbox" @change="onChangeItem(item,index,$event)"
                      :checked="inSelectedItems(item)">
             </td>
@@ -36,9 +37,14 @@
             <template v-for="column in columns">
               <td :style="{width:column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
             </template>
+            <td v-if="$scopedSlots.default">
+              <div ref="actions" style="display: inline-block;">
+                <slot :item="item"></slot>
+              </div>
+            </td>
           </tr>
           <tr v-if="inExpendedIds(item.id)" :key="`${item.id}-expend`">
-            <td :colspan="columns.length + 2">
+            <td :colspan="columns.length + expendedCellColSpan">
               {{item[expendField] || '空'}}
             </td>
           </tr>
@@ -65,6 +71,7 @@
       }
     },
     props: {
+      checkable: {type: Boolean, default: false},
       height: {type: Number},
       expendField: {type: String},
       selectedItems: {type: Array, default: () => []},
@@ -96,6 +103,12 @@
           break
         }
         return equal
+      },
+      expendedCellColSpan () {
+        let result = 0
+        if (this.checkable) {result += 1}
+        if (this.expendField) {result += 1}
+        return result
       }
     },
     watch: {
@@ -113,6 +126,19 @@
       this.$refs.tableWrapper.style.height = this.height - height + 'px'
       table2.appendChild(thead)
       this.$refs.wrapper.appendChild(table2)
+      if (this.$scopedSlots.default) {
+        let div = this.$refs.actions[0]
+        let {width} = div.getBoundingClientRect()
+        let parent = div.parentNode
+        let styles = getComputedStyle(parent)
+        let paddingLeft = styles.getPropertyValue('padding-left')
+        let paddingRight = styles.getPropertyValue('padding-right')
+        let borderLeft = styles.getPropertyValue('border-left')
+        let borderRight = styles.getPropertyValue('border-right')
+        let width2 = width + parseInt(paddingLeft) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight) + 'px'
+        this.$refs.actionsHeader.style.width = width2
+        this.$refs.actions.map(div => div.parentNode.style.width = width2)
+      }
     },
     beforeDestroy () {
       this.table2.remove()
@@ -150,12 +176,10 @@
       expendItem (id) {
         if (this.inExpendedIds(id)) {
           this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
-          console.log(this.expendedIds)
           this.active = false
         } else {
           this.expendedIds.push(id)
           this.active = true
-          console.log(this.expendedIds)
         }
       },
       inExpendedIds (id) {
