@@ -10,9 +10,6 @@
         </template>
       </w-table>
     </div>
-    <div style="margin-top: 20px;">
-      <w-table :columns="columns" :data-source="dataSource" :bordered="true" :compact="true" :striped="false"></w-table>
-    </div>
     <div style="display:flex;justify-content: center;margin: 20px auto;">
       <w-pagination :total-page="10" :current-page.sync="currentPage"></w-pagination>
     </div>

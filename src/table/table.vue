@@ -24,10 +24,10 @@
         </thead>
         <tbody>
         <template v-for=" (item,index) in dataSource">
-          <tr :key="item.id">
-            <td :style="{width:'50px'}" class="w-table-center" v-if="expendField">
-              <w-icon class="w-table-expend-icon" name="right" @click="expendItem(item.id)"
-                      :class="{active}"></w-icon>
+          <tr :key="index">
+            <td :style="{width:'50px'}" class="w-table-center" v-if="expendField" @click="expendItem(item.id,index)">
+              <w-icon class="w-table-expend-icon" name="right"
+                      :class="{active:copyDataSource[index].active}"></w-icon>
             </td>
             <td :style="{width:'50px'}" class="w-table-center" v-if="checkable">
               <input type="checkbox" @change="onChangeItem(item,index,$event)"
@@ -67,7 +67,7 @@
     data () {
       return {
         expendedIds: [],
-        active: false
+        copyDataSource: []
       }
     },
     props: {
@@ -140,6 +140,11 @@
         this.$refs.actions.map(div => div.parentNode.style.width = width2)
       }
     },
+    created () {
+      if (this.expendField) {
+        this.copyDataSource = JSON.parse(JSON.stringify(this.dataSource))
+      }
+    },
     beforeDestroy () {
       this.table2.remove()
     },
@@ -173,13 +178,14 @@
         let selected = e.target.checked
         this.$emit('update:selectedItems', selected ? this.dataSource : [])
       },
-      expendItem (id) {
+      expendItem (id, index) {
+        console.log(this.copyDataSource[index])
         if (this.inExpendedIds(id)) {
           this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
-          this.active = false
+          this.copyDataSource[index].active = false
         } else {
           this.expendedIds.push(id)
-          this.active = true
+          this.copyDataSource[index].active = true
         }
       },
       inExpendedIds (id) {
@@ -228,8 +234,8 @@
     }
     &-copy {position: absolute;top: 0;left: 0;background: white;z-index: 10}
     &-expend-icon {
-      width: 10px;height: 10px;
-      &.active {transform: rotate(90deg);transition: all .2s}
+      width: 10px;height: 10px;transition: all .2s;
+      &.active {transform: rotate(90deg);}
     }
     & &-center {text-align: center;}
   }
