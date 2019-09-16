@@ -1,19 +1,28 @@
 <template>
   <div>
-    <div>
-      <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
-               expend-field="description" :height="200" @update:orderBy="order"
-               :selected-items.sync="selected" :loading="loading">
-        <template slot-scope="item">
-          <button @click="edit(item)">编辑</button>
-          <button @click="view(item)">查看</button>
-        </template>
-      </w-table>
-    </div>
-    <div style="display:flex;justify-content: center;margin: 20px auto;">
-      <w-pagination :total-page="10" :current-page.sync="currentPage"></w-pagination>
-    </div>
+    <w-upload accept="image/*" action="http://xxx.com/upload" name="avatar" :fileList.sync="fileList"
+    >
+      <button>上传</button>
+      <div>只能上传 300kb 以内的 png 、jpeg 文件</div>
+    </w-upload>
+    <button>保存</button>
   </div>
+  
+  <!--  <div>
+      <div>
+        <w-table :columns="columns" :data-source="dataSource" bordered :orderBy.sync="orderBy"
+                 expend-field="description" :height="200" @update:orderBy="order"
+                 :selected-items.sync="selected" :loading="loading">
+          <template slot-scope="item">
+            <button @click="edit(item)">编辑</button>
+            <button @click="view(item)">查看</button>
+          </template>
+        </w-table>
+      </div>
+      <div style="display:flex;justify-content: center;margin: 20px auto;">
+        <w-pagination :total-page="10" :current-page.sync="currentPage"></w-pagination>
+      </div>
+    </div>-->
 </template>
 
 <script>
@@ -25,6 +34,7 @@
     components: {WPagination, WTable},
     data () {
       return {
+        fileList: '',
         currentPage: 1,
         selected: [],
         loading: false,
