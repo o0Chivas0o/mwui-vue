@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <template v-for=" (item,index) in dataSource">
+        <template v-for="(item,index) in dataSource">
           <tr :key="index">
             <td :style="{width:'50px'}" class="w-table-center" v-if="expendField" @click="expendItem(item.id,index)">
               <w-icon class="w-table-expend-icon" name="right"
