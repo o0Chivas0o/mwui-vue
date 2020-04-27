@@ -3,22 +3,32 @@
     <div @click="onClickUpload">
       <slot></slot>
     </div>
-    <div ref="temp" style="width: 0;height: 0;overflow: hidden;"></div>
-    <ol>
+    <slot name="tips"></slot>
+    <ol class="w-uploader-fileList">
       <li v-for="file in fileList" :key="file.name">
         <template v-if="file.status === 'uploading'">
-          菊花
+          <w-icon name="loading" class="w-uploader-spin"></w-icon>
         </template>
-        <img :src="file.url" width="100" height="100" alt="">{{file.name}}
-        <button @click="onRemoveFile(file)">x</button>
+        <template v-else-if="file.type.indexOf('image') === 0">
+          <img class="w-uploader-image" :src="file.url" width="32" height="32" alt="">
+        </template>
+        <template v-else>
+          <div class="w-uploader-defaultImage"></div>
+        </template>
+        <span class="w-uploader-name" :class="{[file.status]:file.status}">{{file.name}}</span>
+        <button class="w-uploader-remove" @click="onRemoveFile(file)">x</button>
       </li>
     </ol>
+    <div ref="temp" style="width: 0;height: 0;overflow: hidden;"></div>
   </div>
 </template>
 
 <script>
+  import WIcon from '@/icon/icon'
+  
   export default {
     name: 'WUploader',
+    components: {WIcon},
     props: {
       name: {type: String, required: true},
       action: {type: String, required: true},
@@ -56,19 +66,30 @@
         this.$refs.temp.appendChild(input)
         return input
       },
-      beforeUploadFile (rawFile, newName) {
-        this.$emit('update:fileList', [...this.fileList, {name: newName, status: 'uploading'}])
-      },
       uploadFile (rawFile) {
         let newName = this.generateName(name)
         this.beforeUploadFile(rawFile, newName)
         let formData = new FormData()
         formData.append(this.name, rawFile)
-        this.doUploadFile(formData, (response) => {
-          let url = this.parseResponse(response)
-          this.url = url
-          this.afterUploadFile(rawFile, newName, url)
-        })
+        this.doUploadFile(formData,
+            (response) => {
+              let url = this.parseResponse(response)
+              this.url = url
+              this.afterUploadFile(rawFile, newName, url)
+            },
+            () => {
+              this.uploadError(newName)
+            })
+        
+      },
+      uploadError (newName) {
+        let file = this.fileList.filter(f => f.name === newName)[0]
+        let index = this.fileList.indexOf(file)
+        let fileCopy = JSON.parse(JSON.stringify(file))
+        fileCopy.status = 'fail'
+        let fileListCopy = [...this.fileList]
+        fileListCopy.splice(index, 1, fileCopy)
+        this.$emit('update:fileList', fileListCopy)
       },
       generateName (name) {
         while (this.fileList.filter(f => f.name === name).length > 0) {
@@ -79,6 +100,10 @@
         }
         return name
       },
+      beforeUploadFile (rawFile, newName) {
+        let {size, type} = rawFile
+        this.$emit('update:fileList', [...this.fileList, {name: newName, status: 'uploading', size, type}])
+      },
       afterUploadFile (rawFile, newName, url) {
         let file = this.fileList.filter(f => f.name === name)[0]
         let index = this.fileList.indexOf(file)
@@ -86,13 +111,19 @@
         fileCopy.url = url
         fileCopy.status = 'success'
         let fileListCopy = [...this.fileList]
-        fileListCopy.splice(index, 1, copy)
+        fileListCopy.splice(index, 1, fileCopy)
         this.$emit('update:fileList', fileListCopy)
       },
-      doUploadFile (formData, success) {
+      doUploadFile (formData, success, fail) {
         let xhr = new XMLHttpRequest()
         xhr.open('POST', this.action)
-        xhr.onload = () => {success(xhr.response)}
+        xhr.onload = () => {
+          if (Math.random() > 0.5) {
+            success(xhr.response)
+          } else {
+            fail()
+          }
+        }
         xhr.send(formData)
       }
     }
@@ -102,6 +133,18 @@
 <style lang="scss" scoped>
   @import '../style/var';
   .w-uploader {
-    border: 1px solid red;
+    &-fileList {
+      list-style: none;
+      > li {display: flex;align-items: center;margin: 8px 0;border: 1px solid darken($grey, 10%);}
+    }
+    &-defaultImage {width: 32px; height: 32px;margin-right: 8px;}
+    &-image {margin-right: 8px;border: none}
+    &-name {
+      margin-right: auto;
+      &.success {color: green;}
+      &.fail {color: $red;}
+    }
+    &-remove {width: 32px;height: 32px;}
+    &-spin {@include spin;width: 32px;height: 32px;}
   }
 </style>
