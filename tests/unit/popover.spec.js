@@ -13,7 +13,7 @@ describe('Popover', () => {
     expect(Popover).exist
   })
   
-  it('可以设置 position.', () => {
+  xit('可以设置 position.', () => {
     const wrapper = mount(Popover, {
       slots: {
         default: {template: `<button>点我</button>`},

@@ -25,6 +25,7 @@
 
 <script>
   import WIcon from '@/icon/icon'
+  import http from '../http'
   
   export default {
     name: 'WUploader',
@@ -32,7 +33,7 @@
     props: {
       name: {type: String, required: true},
       action: {type: String, required: true},
-      methods: {type: String, default: 'POST'},
+      method: {type: String, default: 'POST'},
       parseResponse: {type: Function, required: true},
       fileList: {type: Array, default: () => []},
       sizeLimit: {type: Number}
@@ -46,8 +47,7 @@
       onClickUpload () {
         let input = this.createInput()
         input.addEventListener('change', () => {
-          console.log(input.files)
-          this.uploadFiles(input.files)
+          this.uploadFiles(input.files) // 单文件
           input.remove()
         })
         input.click()
@@ -64,7 +64,7 @@
       beforeUploadFiles (rawFiles, newNames) {
         rawFiles = Array.from(rawFiles)
         for (let i = 0; i < rawFiles.length; i++) {
-          let {size} = rawFiles[i]
+          let {size, type} = rawFiles[i]
           if (size > this.sizeLimit) {
             this.$emit('error', '文件大于2MB')
             return false
@@ -91,8 +91,9 @@
         let newNames = []
         for (let i = 0; i < rawFiles.length; i++) {
           let rawFile = rawFiles[i]
-          let {name} = rawFile
-          newNames[i] = this.generateName(name)
+          let {name, size, type} = rawFile
+          let newName = this.generateName(name)
+          newNames[i] = newName
         }
         if (!this.beforeUploadFiles(rawFiles, newNames)) {return}
         for (let i = 0; i < rawFiles.length; i++) {
@@ -100,15 +101,13 @@
           let newName = newNames[i]
           let formData = new FormData()
           formData.append(this.name, rawFile)
-          this.doUploadFiles(formData,
-              (response) => {
-                let url = this.parseResponse(response)
-                this.url = url
-                this.afterUploadFiles(newName, url)
-              },
-              (xhr) => {
-                this.uploadError(xhr, newName)
-              })
+          this.doUploadFiles(formData, (response) => {
+            let url = this.parseResponse(response)
+            this.url = url
+            this.afterUploadFiles(newName, url)
+          }, (xhr) => {
+            this.uploadError(xhr, newName)
+          })
         }
       },
       uploadError (xhr, newName) {
@@ -116,13 +115,14 @@
         let index = this.fileList.indexOf(file)
         let fileCopy = JSON.parse(JSON.stringify(file))
         fileCopy.status = 'fail'
+        // fileCopy.failMessage = '尺寸过大'
         let fileListCopy = [...this.fileList]
         fileListCopy.splice(index, 1, fileCopy)
+        this.$emit('update:fileList', fileListCopy)
         let error = ''
         if (xhr.status === 0) {
-          error = '当前无网络连接'
+          error = '网络无法连接'
         }
-        this.$emit('update:fileList', fileListCopy)
         this.$emit('error', error)
       },
       generateName (name) {
@@ -135,11 +135,7 @@
         return name
       },
       doUploadFiles (formData, success, fail) {
-        let xhr = new XMLHttpRequest()
-        xhr.open('POST', this.action)
-        xhr.onload = () => {success(xhr.response)}
-        xhr.onerror = () => {fail(xhr, xhr.status)}
-        xhr.send(formData)
+        http[this.method.toLowerCase()](this.action, {success, fail, data: formData})
       },
       createInput () {
         this.$refs.temp.innerHTML = ''

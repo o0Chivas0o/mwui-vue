@@ -23,7 +23,6 @@
     created () {},
     methods: {
       parseResponse (response) {
-        console.log(response)
         let obj = JSON.parse(response) // 反序列化:字符串->对象
         return `https://node-server-zjl-1.herokuapp.com/preview/${obj.id}`
       },
