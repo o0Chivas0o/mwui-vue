@@ -46,8 +46,8 @@
       onClickUpload () {
         let input = this.createInput()
         input.addEventListener('change', () => {
-          let file = input.files[0]
-          this.uploadFile(file)
+          console.log(input.files)
+          this.uploadFiles(input.files)
           input.remove()
         })
         input.click()
@@ -61,28 +61,55 @@
           this.$emit('update:fileList', copy)
         }
       },
-      createInput () {
-        this.$refs.temp.innerHTML = ''
-        let input = document.createElement('input')
-        input.type = 'file'
-        this.$refs.temp.appendChild(input)
-        return input
+      beforeUploadFiles (rawFiles, newNames) {
+        rawFiles = Array.from(rawFiles)
+        for (let i = 0; i < rawFiles.length; i++) {
+          let {size} = rawFiles[i]
+          if (size > this.sizeLimit) {
+            this.$emit('error', '文件大于2MB')
+            return false
+          }
+        }
+        let x = rawFiles.map((rawFile, i) => {
+          let {type, size} = rawFile
+          return {name: newNames[i], type, size, status: 'uploading'}
+        })
+        this.$emit('update:fileList', [...this.fileList, ...x])
+        return true
       },
-      uploadFile (rawFile) {
-        let newName = this.generateName(name)
-        if (!this.beforeUploadFile(rawFile, newName)) {return}
-        let formData = new FormData()
-        formData.append(this.name, rawFile)
-        this.doUploadFile(formData,
-            (response) => {
-              let url = this.parseResponse(response)
-              this.url = url
-              this.afterUploadFile(rawFile, newName, url)
-            },
-            (xhr) => {
-              this.uploadError(xhr, newName)
-            })
-        
+      afterUploadFiles (newName, url) {
+        let file = this.fileList.filter(f => f.name === newName)[0]
+        let index = this.fileList.indexOf(file)
+        let fileCopy = JSON.parse(JSON.stringify(file))
+        fileCopy.url = url
+        fileCopy.status = 'success'
+        let fileListCopy = [...this.fileList]
+        fileListCopy.splice(index, 1, fileCopy)
+        this.$emit('update:fileList', fileListCopy)
+      },
+      uploadFiles (rawFiles) {
+        let newNames = []
+        for (let i = 0; i < rawFiles.length; i++) {
+          let rawFile = rawFiles[i]
+          let {name} = rawFile
+          newNames[i] = this.generateName(name)
+        }
+        if (!this.beforeUploadFiles(rawFiles, newNames)) {return}
+        for (let i = 0; i < rawFiles.length; i++) {
+          let rawFile = rawFiles[i]
+          let newName = newNames[i]
+          let formData = new FormData()
+          formData.append(this.name, rawFile)
+          this.doUploadFiles(formData,
+              (response) => {
+                let url = this.parseResponse(response)
+                this.url = url
+                this.afterUploadFiles(newName, url)
+              },
+              (xhr) => {
+                this.uploadError(xhr, newName)
+              })
+        }
       },
       uploadError (xhr, newName) {
         let file = this.fileList.filter(f => f.name === newName)[0]
@@ -107,31 +134,22 @@
         }
         return name
       },
-      beforeUploadFile (rawFile, newName) {
-        let {size, type} = rawFile
-        if (size > this.sizeLimit) {
-          this.$emit('error', '文件大于2MB')
-        } else {
-          this.$emit('update:fileList', [...this.fileList, {name: newName, status: 'uploading', size, type}])
-        }
-      },
-      afterUploadFile (rawFile, newName, url) {
-        let file = this.fileList.filter(f => f.name === name)[0]
-        let index = this.fileList.indexOf(file)
-        let fileCopy = JSON.parse(JSON.stringify(file))
-        fileCopy.url = url
-        fileCopy.status = 'success'
-        let fileListCopy = [...this.fileList]
-        fileListCopy.splice(index, 1, fileCopy)
-        this.$emit('update:fileList', fileListCopy)
-      },
-      doUploadFile (formData, success, fail) {
+      doUploadFiles (formData, success, fail) {
         let xhr = new XMLHttpRequest()
         xhr.open('POST', this.action)
         xhr.onload = () => {success(xhr.response)}
         xhr.onerror = () => {fail(xhr, xhr.status)}
         xhr.send(formData)
-      }
+      },
+      createInput () {
+        this.$refs.temp.innerHTML = ''
+        let input = document.createElement('input')
+        input.accept = 'image/*'
+        input.type = 'file'
+        input.multiple = true
+        this.$refs.temp.appendChild(input)
+        return input
+      },
     }
   }
 </script>
