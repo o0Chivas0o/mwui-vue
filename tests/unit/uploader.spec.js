@@ -12,14 +12,16 @@ describe('Uploader', () => {
   it('存在.', () => {
     expect(Uploader).to.exist
   })
-  xit('可以上传一个文件', (done) => {
+  it('可以上传一个文件', (done) => {
     
     http.post = (url, options) => {
       setTimeout(function () {
         options.success('{"id": "123123"}')
         console.log(wrapper.html())
+        let use = wrapper.find('use').element
+        expect(use.getAttribute('xlink:href')).to.eq('#i-loading')
         done()
-      }, 100)
+      }, 1000)
     }
     
     const wrapper = mount(Uploader, {
@@ -43,13 +45,11 @@ describe('Uploader', () => {
     
     let input = wrapper.find('input[type="file"]').element
     const data = new DataTransfer()
-    data.items.add(new File(["foo"], 'foo.png'))
-    data.items.add(new File(["bar"], 'bar.png'))
+    data.items.add(new File(['foo'], 'foo.png'))
+    data.items.add(new File(['bar'], 'bar.png'))
     input.files = data.files
-  
-  
-    // console.log(wrapper.html())
-    let use = wrapper.find('use').element
-    expect(use.getAttribute('xlink:href')).to.eq('#i-loading')
+    // 赋值并没有解决change事件被调用 需要手动触发
+    wrapper.find('input[type="file"]').trigger('change')
+    
   })
 })
