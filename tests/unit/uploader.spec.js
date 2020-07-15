@@ -12,12 +12,11 @@ describe('Uploader', () => {
   it('存在.', () => {
     expect(Uploader).to.exist
   })
-  it('可以上传一个文件', (done) => {
+  xit('可以上传一个文件', (done) => {
     
     http.post = (url, options) => {
       setTimeout(function () {
         options.success('{"id": "123123"}')
-        console.log(wrapper.html())
         let use = wrapper.find('use').element
         expect(use.getAttribute('xlink:href')).to.eq('#i-loading')
         done()
@@ -38,18 +37,24 @@ describe('Uploader', () => {
       slots: {default: `<button id="xx">click me</button>`},
       listeners: {
         'update:fileList': (fileList) => { wrapper.setProps({fileList}) },
+        'uploaded': () => {
+          expect(wrapper.find('use').exists()).to.eq(false)
+          expect(wrapper.props().fileList[0].url).to.eq('/preview/123123')
+        }
       }
     })
     
+    console.log(wrapper.html())
     wrapper.find('#xx').trigger('click')
+    console.log(wrapper.html())
     
     let input = wrapper.find('input[type="file"]').element
     const data = new DataTransfer()
-    data.items.add(new File(['foo'], 'foo.png'))
-    data.items.add(new File(['bar'], 'bar.png'))
+    data.items.add(new File(['foo'], 'foo.txt', {type: 'png'}))
     input.files = data.files
     // 赋值并没有解决change事件被调用 需要手动触发
     wrapper.find('input[type="file"]').trigger('change')
+    console.log(wrapper.html())
     
   })
 })
