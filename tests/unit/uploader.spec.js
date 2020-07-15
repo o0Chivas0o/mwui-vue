@@ -43,18 +43,12 @@ describe('Uploader', () => {
         }
       }
     })
-    
-    console.log(wrapper.html())
     wrapper.find('#xx').trigger('click')
-    console.log(wrapper.html())
-    
     let input = wrapper.find('input[type="file"]').element
     const data = new DataTransfer()
     data.items.add(new File(['foo'], 'foo.txt', {type: 'png'}))
     input.files = data.files
     // 赋值并没有解决change事件被调用 需要手动触发
     wrapper.find('input[type="file"]').trigger('change')
-    console.log(wrapper.html())
-    
   })
 })
