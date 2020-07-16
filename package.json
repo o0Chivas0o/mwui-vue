@@ -1,17 +1,20 @@
 {
-  "name": "wheel",
-  "version": "0.1.0",
+  "name": "vue-mwui",
+  "version": "0.0.1",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name mWheel src/index.js",
+    "build": "vue-cli-service build --target lib --name vue-mwui src/index.js",
     "test": "karma start --single-run",
     "test:unit": "karma start",
     "test:unit:old": "vue-cli-service test:unit"
   },
+  "description": "这是一个基于Vue.jS 2.X 的 UI轮子",
+  "author": "dwight_lee",
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10"
   },
+  "main": "dist/vue-mwui.und.js",
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-plugin-unit-mocha": "^3.9.0",

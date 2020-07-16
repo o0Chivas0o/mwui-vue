@@ -4,7 +4,7 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/o0Chivas0o/my-wheel.svg)
 
-## 介绍a
+## 介绍
 
 ## 开始使用
 
