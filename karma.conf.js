@@ -1,5 +1,7 @@
 var webpackConfig = require('@vue/cli-service/webpack.config.js')
-module.exports = function (config) {
+const path = require('path')
+
+module.exports = function(config) {
   config.set({
     frameworks: ['mocha'],
     files: [
@@ -9,7 +11,12 @@ module.exports = function (config) {
       '**/*.spec.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
-    reporters: ['spec'],
-    browsers: ['ChromeHeadless']
+    reporters: ['spec', 'coverage'],
+    coverageReporter: {
+      dir: './coverage',
+      reporters: [{type: 'lcov', subdir: '.'}, {type: 'text-summary'}]
+    },
+    browsers: ['ChromeHeadless'],
+    autoWatch: true
   })
 }
