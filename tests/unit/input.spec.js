@@ -6,7 +6,7 @@ chai.use(sinonChai)
 
 import { shallowMount, mount } from '@vue/test-utils'
 
-import Input from '@/input/input'
+import Input from '../../src/input/input.vue'
 
 describe('Input', () => {
   it('存在.', () => {
