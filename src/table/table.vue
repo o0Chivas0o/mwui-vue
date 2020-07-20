@@ -35,7 +35,14 @@
             </td>
             <td :style="{width:'50px'}" v-if="numberVisible">{{index+1}}</td>
             <template v-for="column in columns">
-              <td :style="{width:column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
+              <td :style="{width:column.width + 'px'}" :key="column.field">
+                <template v-if="column.render">
+                  <vnodes :vnodes="column.render({value: item[column.field]})"></vnodes>
+                </template>
+                <template v-else>
+                  {{item[column.field]}}
+                </template>
+              </td>
             </template>
             <td v-if="$scopedSlots.default">
               <div ref="actions" style="display: inline-block;">
@@ -63,11 +70,18 @@
   
   export default {
     name: 'WTable',
-    components: {WIcon},
+    components: {
+      WIcon,
+      vnodes: {
+        functional: true,
+        render: (h, context) => context.props.vnodes
+      }
+    },
     data () {
       return {
         expendedIds: [],
-        copyDataSource: []
+        copyDataSource: [],
+        columns: []
       }
     },
     props: {
@@ -78,7 +92,7 @@
       loading: {type: Boolean, default: false},
       compact: {type: Boolean, default: false},
       striped: {type: Boolean, default: true},
-      columns: {type: Array, required: true},
+      // columns: {type: Array, required: true},
       numberVisible: {type: Boolean, default: false},
       bordered: {type: Boolean, default: false},
       orderBy: {type: Object, default: () => ({})},
@@ -117,6 +131,12 @@
       }
     },
     mounted () {
+      this.columns = this.$slots.default.map(node => {
+        let {text, field, width} = node.componentOptions.propsData
+        let render = node.data.scopedSlots && node.data.scopedSlots.default
+        return {text, field, width, render}
+      })
+      
       let table2 = this.$refs.table.cloneNode(false)
       this.table2 = table2
       table2.classList.add('w-table-copy')
